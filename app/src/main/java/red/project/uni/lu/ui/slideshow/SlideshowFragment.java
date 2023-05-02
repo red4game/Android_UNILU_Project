@@ -31,8 +31,8 @@ public class SlideshowFragment extends Fragment {
         RecyclerView toWatchRecyclerView = view.findViewById(R.id.recyclerToWatch);
 
         List<ToWatchItem> toWatchItems = new ArrayList<>();
-        toWatchItems.add(new ToWatchItem(R.drawable.ic_launcher_background, "Title", "Description", "Date", "Genre", "Director"));
-        toWatchItems.add(new ToWatchItem(R.drawable.ic_launcher_background, "Other Title", "whatever Description", "somewhat Date", "a normal Genre", "what a Director"));
+        toWatchItems.add(new ToWatchItem("https://picsum.photos/200/300", "Title", "Description", "Date", "Genre", "Director"));
+        toWatchItems.add(new ToWatchItem("https://picsum.photos/300/300", "Other Title", "whatever Description", "somewhat Date", "a normal Genre", "what a Director"));
 
         toWatchRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         toWatchRecyclerView.setAdapter(new ToWatchAdapter(toWatchItems));

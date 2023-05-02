@@ -4,9 +4,12 @@ import android.content.Context;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -26,7 +29,7 @@ public class ToWatchAdapter extends RecyclerView.Adapter<ToWatchViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ToWatchViewHolder holder, int position) {
-        holder.preview.setImageResource(toWatchItems.get(position).getPreview());
+        Picasso.get().load(toWatchItems.get(position).getPreview()).into(holder.preview);
         holder.title.setText(toWatchItems.get(position).getTitle());
         holder.description.setText(toWatchItems.get(position).getDescription());
         holder.date.setText(toWatchItems.get(position).getDateOfRelease());

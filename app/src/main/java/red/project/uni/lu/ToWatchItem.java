@@ -3,7 +3,7 @@ package red.project.uni.lu;
 import android.media.Image;
 
 public class ToWatchItem {
-    int preview;
+    String previewUrl;
     String title;
     String description;
     String dateOfRelease;
@@ -12,8 +12,8 @@ public class ToWatchItem {
     // maybe add other fields
 
 
-    public ToWatchItem(int preview, String title, String description, String dateOfRelease, String genre, String director) {
-        this.preview = preview;
+    public ToWatchItem(String previewUrl, String title, String description, String dateOfRelease, String genre, String director) {
+        this.previewUrl = previewUrl;
         this.title = title;
         this.description = description;
         this.dateOfRelease = dateOfRelease;
@@ -21,12 +21,12 @@ public class ToWatchItem {
         this.director = director;
     }
 
-    public int getPreview() {
-        return preview;
+    public String getPreview() {
+        return previewUrl;
     }
 
-    public void setPreview(int preview) {
-        this.preview = preview;
+    public void setPreview(String preview) {
+        this.previewUrl = preview;
     }
 
     public String getTitle() {
