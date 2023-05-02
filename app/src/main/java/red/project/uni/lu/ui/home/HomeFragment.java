@@ -10,6 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
+
+import java.util.ArrayList;
+
+import red.project.uni.lu.R;
 import red.project.uni.lu.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -18,15 +25,20 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        ImageSlider imageSlider = view.findViewById(R.id.CinemaSlider);
+        ArrayList<SlideModel> models = new ArrayList<>();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        models.add(new SlideModel("https://picsum.photos/200/300", ScaleTypes.FIT));
+        models.add(new SlideModel("https://picsum.photos/300/300", ScaleTypes.FIT));
+        models.add(new SlideModel("https://picsum.photos/300/200", ScaleTypes.FIT));
+        models.add(new SlideModel("https://picsum.photos/400/400", ScaleTypes.FIT));
+        imageSlider.setImageList(models, ScaleTypes.FIT);
+
+
+
+        return view;
     }
 
     @Override
