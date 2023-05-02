@@ -13,6 +13,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import red.project.uni.lu.databinding.ActivityMainBinding;
 
@@ -20,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        RecyclerView toWatchRecyclerView = findViewById(R.id.recyclerToWatch);
+
+        List<ToWatchItem> toWatchItems = new ArrayList<>();
+        toWatchItems.add(new ToWatchItem(R.drawable.ic_launcher_background, "Title", "Description", "Date", "Genre", "Director"));
+        toWatchItems.add(new ToWatchItem(R.drawable.ic_launcher_background, "Other Title", "whatever Description", "somewhat Date", "a normal Genre", "what a Director"));
+
+        toWatchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        toWatchRecyclerView.setAdapter(new ToWatchAdapter(getApplicationContext(), toWatchItems));
     }
 
     @Override
