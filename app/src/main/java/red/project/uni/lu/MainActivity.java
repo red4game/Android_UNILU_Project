@@ -54,15 +54,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        RecyclerView toWatchRecyclerView = findViewById(R.id.recyclerToWatch);
-
-        List<ToWatchItem> toWatchItems = new ArrayList<>();
-        toWatchItems.add(new ToWatchItem(R.drawable.ic_launcher_background, "Title", "Description", "Date", "Genre", "Director"));
-        toWatchItems.add(new ToWatchItem(R.drawable.ic_launcher_background, "Other Title", "whatever Description", "somewhat Date", "a normal Genre", "what a Director"));
-
-        toWatchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        toWatchRecyclerView.setAdapter(new ToWatchAdapter(getApplicationContext(), toWatchItems));
     }
 
     @Override

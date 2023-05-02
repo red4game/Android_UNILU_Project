@@ -9,8 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import red.project.uni.lu.R;
+import red.project.uni.lu.ToWatchAdapter;
+import red.project.uni.lu.ToWatchItem;
 import red.project.uni.lu.databinding.FragmentSlideshowBinding;
 
 public class SlideshowFragment extends Fragment {
@@ -19,17 +26,17 @@ public class SlideshowFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        View view = inflater.inflate(R.layout.fragment_slideshow, container, false);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        RecyclerView toWatchRecyclerView = view.findViewById(R.id.recyclerToWatch);
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        List<ToWatchItem> toWatchItems = new ArrayList<>();
+        toWatchItems.add(new ToWatchItem(R.drawable.ic_launcher_background, "Title", "Description", "Date", "Genre", "Director"));
+        toWatchItems.add(new ToWatchItem(R.drawable.ic_launcher_background, "Other Title", "whatever Description", "somewhat Date", "a normal Genre", "what a Director"));
 
-
-        return root;
+        toWatchRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        toWatchRecyclerView.setAdapter(new ToWatchAdapter(toWatchItems));
+        return view;
     }
 
     @Override
