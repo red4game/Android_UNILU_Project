@@ -14,6 +14,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "TMDB_API_KEY", "\"f06275bd894c174dead8ed44db5f8b95\""
     }
 
     buildTypes {
@@ -22,6 +24,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -30,6 +34,7 @@ android {
         viewBinding true
     }
 }
+
 
 dependencies {
     constraints {
@@ -56,4 +61,9 @@ dependencies {
 
     // slider library
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+
+    // adding api call library
+    implementation 'com.android.volley:volley:1.2.1'
+
 }
+
