@@ -5,17 +5,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
 
 import org.json.JSONException;
@@ -26,6 +25,7 @@ import java.util.ArrayList;
 import red.project.uni.lu.BuildConfig;
 import red.project.uni.lu.R;
 import red.project.uni.lu.databinding.FragmentHomeBinding;
+import red.project.uni.lu.ui.no_watched_detailled.NoWatchedDetailledFragment;
 
 public class HomeFragment extends Fragment {
 
@@ -41,7 +41,8 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        imageSlider = view.findViewById(R.id.CinemaSlider);
+        imageSlider = view.findViewById(R.id.RecoNoWatchSlider);
+
         models = new ArrayList<>();
         moviesIDS = new ArrayList<>();
 
@@ -78,15 +79,30 @@ public class HomeFragment extends Fragment {
                     models.add(new SlideModel("https://image.tmdb.org/t/p/w500/" + poster_path, title + " - " + date, ScaleTypes.FIT));
 
                     // Add new click listener to the image slider
-                    imageSlider.setItemClickListener(position -> {
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("movieID", moviesIDS.get(position));
-                        System.out.println(moviesIDS.get(position));
-                    });
+
 
                     moviesIDS.add(id);
                 }
                 imageSlider.setImageList(models, ScaleTypes.FIT);
+                imageSlider.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void doubleClick(int i) {
+                        // DO NOTHING
+                    }
+
+                    @Override
+                    public void onItemSelected(int i) {
+                        // open an intent to the movie page by passing the id of the movie
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("movieID", moviesIDS.get(i));
+                        Fragment fragment = new NoWatchedDetailledFragment();
+                        fragment.setArguments(bundle);
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.nav_host_fragment_content_main, fragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                });
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }

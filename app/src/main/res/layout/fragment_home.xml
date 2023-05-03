@@ -7,7 +7,7 @@
     tools:context=".ui.home.HomeFragment">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/CinemaContainer"
+        android:id="@+id/RecoNoWatchContainer"
         android:layout_width="379dp"
 
         android:layout_height="441dp"
@@ -19,12 +19,12 @@
         app:layout_constraintTop_toTopOf="parent" >
 
         <com.denzcoskun.imageslider.ImageSlider
-            android:id="@+id/CinemaSlider"
+            android:id="@+id/RecoNoWatchSlider"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:iss_auto_cycle="true"
             app:iss_corner_radius="20"
-            app:iss_delay="500"
-            app:iss_period="1000" />
+            app:iss_delay="1000"
+            app:iss_period="10000" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
