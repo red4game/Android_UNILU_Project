@@ -8,7 +8,7 @@
     >
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/RecoNoWatchContainer"
+        android:id="@+id/NowPlayingContainer"
         android:layout_width="366dp"
 
         android:layout_height="229dp"
@@ -40,30 +40,33 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="218dp"
+            android:layout_height="257dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/ImageNoWatch"
-                android:layout_width="159dp"
-                android:layout_height="215dp"
+                android:layout_width="188dp"
+                android:layout_height="match_parent"
                 tools:src="@tools:sample/avatars" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="214dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/TitleNoWatch"
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
-                    android:text="Title of the movie" />
+                    android:text="Title of the movie"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:id="@+id/DescriptionNoWatch"
                     android:layout_width="match_parent"
-                    android:layout_height="165dp"
+                    android:layout_height="199dp"
+                    android:isScrollContainer="true"
+                    android:scrollbars="vertical"
                     android:text="Synopsis of the movie \n wow amazing" />
 
             </LinearLayout>
@@ -84,13 +87,16 @@
                 <TextView
                     android:id="@+id/GenresNoWatch"
                     android:layout_width="match_parent"
-                    android:layout_height="136dp"
+                    android:layout_height="158dp"
+                    android:paddingHorizontal="15px"
                     android:text="Genres of the movie" />
 
                 <TextView
                     android:id="@+id/RatingNoWatch"
                     android:layout_width="match_parent"
-                    android:layout_height="121dp"
+                    android:layout_height="63dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="15px"
                     android:text="Rating of the movie" />
             </LinearLayout>
 

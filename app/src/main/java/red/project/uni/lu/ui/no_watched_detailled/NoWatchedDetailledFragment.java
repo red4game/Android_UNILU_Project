@@ -104,6 +104,7 @@ public class NoWatchedDetailledFragment extends Fragment {
                 Picasso.get().load("https://image.tmdb.org/t/p/w500" + jsonObj.getString("poster_path")).into(poster);
                 title.setText(jsonObj.getString("title"));
                 description.setText(jsonObj.getString("overview"));
+                description.setMovementMethod(new android.text.method.ScrollingMovementMethod());
                 StringBuilder genres = new StringBuilder("Genres : \n");
                 for (int i = 0; i < jsonObj.getJSONArray("genres").length(); i++) {
                     genres.append(" - ").append(jsonObj.getJSONArray("genres").getJSONObject(i).getString("name")).append("\n");
@@ -127,7 +128,7 @@ public class NoWatchedDetailledFragment extends Fragment {
                         System.out.println(response2);
                         JSONObject jsonObj2 = new JSONObject(response2);
                         for (int i = 0; i < jsonObj2.getJSONArray("results").length(); i++) {
-                            recoModels.add(new SlideModel("https://image.tmdb.org/t/p/w500" + jsonObj2.getJSONArray("results").getJSONObject(i).getString("backdrop_path"), ScaleTypes.FIT));
+                            recoModels.add(new SlideModel("https://image.tmdb.org/t/p/w500" + jsonObj2.getJSONArray("results").getJSONObject(i).getString("backdrop_path"),jsonObj2.getJSONArray("results").getJSONObject(i).getString("title"), ScaleTypes.FIT));
                         }
 
                         recoSlider.setImageList(recoModels, ScaleTypes.FIT);

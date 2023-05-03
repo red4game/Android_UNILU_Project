@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        imageSlider = view.findViewById(R.id.RecoNoWatchSlider);
+        imageSlider = view.findViewById(R.id.NowPlayingSlider);
 
         models = new ArrayList<>();
         moviesIDS = new ArrayList<>();
@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
     // Make api call to get the movies from the database and return url of the image + title
     private void getMovies() {
 
-        String url = "https://api.themoviedb.org/3/movie/upcoming?api_key="+ BuildConfig.TMDB_API_KEY +"&language=fr-FR&page=1&region=FR";
+        String url = "https://api.themoviedb.org/3/movie/now_playing?api_key="+ BuildConfig.TMDB_API_KEY +"&language=fr-FR&page=1&region=FR";
         mRequestQueue = Volley.newRequestQueue(view.getContext());
         mStringRequest = new StringRequest(url, response -> {
             try {
@@ -80,11 +80,11 @@ public class HomeFragment extends Fragment {
                     int id = movie.getInt("id");
                     String title = movie.getString("title");
                     String date = movie.getString("release_date");
-                    String poster_path = movie.getString("poster_path");
+                    String poster_path = movie.getString("backdrop_path");
                     models.add(new SlideModel("https://image.tmdb.org/t/p/w500/" + poster_path, title + " - " + date, ScaleTypes.FIT));
 
                     // Add new click listener to the image slider
-                    
+
 
 
                     moviesIDS.add(id);
