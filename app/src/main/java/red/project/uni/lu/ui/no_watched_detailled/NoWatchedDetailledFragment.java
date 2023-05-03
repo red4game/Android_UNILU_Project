@@ -61,9 +61,9 @@ public class NoWatchedDetailledFragment extends Fragment {
         addWatched = view.findViewById(R.id.AddWDNoWatched);
         addToWatch = view.findViewById(R.id.AddTWNoWatch);
 
-
-        movieId = (int) savedInstanceState.get("movieId");
-
+        Bundle bundle = this.getArguments();
+        assert bundle != null;
+        movieId = (int) bundle.get("movieID");
         System.out.println("from detailled : " + movieId);
         recoModels = new ArrayList<>();
 

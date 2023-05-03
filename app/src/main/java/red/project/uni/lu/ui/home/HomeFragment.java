@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -21,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import red.project.uni.lu.BuildConfig;
 import red.project.uni.lu.R;
@@ -95,12 +100,9 @@ public class HomeFragment extends Fragment {
                         // open an intent to the movie page by passing the id of the movie
                         Bundle bundle = new Bundle();
                         bundle.putInt("movieID", moviesIDS.get(i));
-                        Fragment fragment = new NoWatchedDetailledFragment();
-                        fragment.setArguments(bundle);
-                        getActivity().getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.nav_host_fragment_content_main, fragment)
-                                .addToBackStack(null)
-                                .commit();
+                        System.out.println(moviesIDS.get(i));
+                        Navigation.findNavController(view).navigate(R.id.action_nav_home_to_noWatchedDetailledFragment, bundle);
+
                     }
                 });
             } catch (JSONException e) {
