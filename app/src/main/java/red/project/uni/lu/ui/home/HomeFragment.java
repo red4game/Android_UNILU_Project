@@ -84,6 +84,7 @@ public class HomeFragment extends Fragment {
                     models.add(new SlideModel("https://image.tmdb.org/t/p/w500/" + poster_path, title + " - " + date, ScaleTypes.FIT));
 
                     // Add new click listener to the image slider
+                    
 
 
                     moviesIDS.add(id);
