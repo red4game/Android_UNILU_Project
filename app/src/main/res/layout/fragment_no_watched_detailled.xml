@@ -65,6 +65,8 @@
                     android:id="@+id/DescriptionNoWatch"
                     android:layout_width="match_parent"
                     android:layout_height="199dp"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="50px"
                     android:isScrollContainer="true"
                     android:scrollbars="vertical"
                     android:text="Synopsis of the movie \n wow amazing" />
@@ -88,7 +90,7 @@
                     android:id="@+id/GenresNoWatch"
                     android:layout_width="match_parent"
                     android:layout_height="158dp"
-                    android:paddingHorizontal="15px"
+                    android:layout_marginLeft="50px"
                     android:text="Genres of the movie" />
 
                 <TextView
@@ -96,7 +98,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="63dp"
                     android:gravity="center"
-                    android:paddingHorizontal="15px"
                     android:text="Rating of the movie" />
             </LinearLayout>
 
