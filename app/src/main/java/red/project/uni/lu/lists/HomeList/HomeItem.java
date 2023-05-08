@@ -7,6 +7,7 @@ public class HomeItem {
     String dateOfRelease;
     String Rating;
 
+    public HomeItem() {}
     public HomeItem(String previewUrl, String title, String description, String dateOfRelease, String Rating) {
         this.previewUrl = previewUrl;
         this.title = title;
@@ -14,6 +15,7 @@ public class HomeItem {
         this.dateOfRelease = dateOfRelease;
         this.Rating = Rating;
     }
+
 
     public String getPreviewUrl() {
         return previewUrl;
