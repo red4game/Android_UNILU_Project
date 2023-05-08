@@ -1,4 +1,4 @@
-package red.project.uni.lu;
+package red.project.uni.lu.lists.ToWatchList;
 
 import android.media.Image;
 

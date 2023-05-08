@@ -1,10 +1,7 @@
-package red.project.uni.lu;
+package red.project.uni.lu.lists.ToWatchList;
 
-import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import red.project.uni.lu.R;
 
 public class ToWatchAdapter extends RecyclerView.Adapter<ToWatchViewHolder> {
 
