@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,6 +14,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
@@ -25,11 +29,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import red.project.uni.lu.BuildConfig;
 import red.project.uni.lu.R;
 import red.project.uni.lu.databinding.FragmentHomeBinding;
+import red.project.uni.lu.lists.HomeList.HomeAdapter;
+import red.project.uni.lu.lists.HomeList.LoadListener;
 import red.project.uni.lu.ui.no_watched_detailled.NoWatchedDetailledFragment;
 
 public class HomeFragment extends Fragment {
@@ -40,21 +47,64 @@ public class HomeFragment extends Fragment {
     ArrayList<SlideModel> models;
     ArrayList<Integer> moviesIDS;
     ImageSlider imageSlider;
+    Button sortTitle;
+    Button sortDate;
+    Button sortRating;
+
+    SearchView searchBar;
+
+    RecyclerView homeList;
     View view;
+
+
+
+    int page = 1;
+    boolean isLoading = false;
+    boolean isLastPage = false;
+    String query = "";
+    int numPages = 5;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
         imageSlider = view.findViewById(R.id.NowPlayingSlider);
+        sortTitle = view.findViewById(R.id.HomeSortTitle);
+        sortDate = view.findViewById(R.id.HomeSortDate);
+        sortRating = view.findViewById(R.id.HomeSortRating);
+        searchBar = view.findViewById(R.id.HomeSearch);
+        homeList = view.findViewById(R.id.HomeRecyclerList);
 
         models = new ArrayList<>();
         moviesIDS = new ArrayList<>();
 
-        getMovies();
+        getCinemaMovies();
 
+        LinearLayoutManager llm = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
+        HomeAdapter homeAdapter = new HomeAdapter();
+        homeList.setLayoutManager(llm);
+        homeList.setAdapter(homeAdapter);
 
+        homeList.addOnScrollListener(new LoadListener(llm) {
+            @Override
+            protected void loadMore() {
+                isLoading = true;
+                page++;
+                nextPageListMovies();
 
+            }
+
+            @Override
+            public boolean isLast() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoad() {
+                return isLoading;
+            }
+        });
 
 
         return view;
@@ -67,7 +117,7 @@ public class HomeFragment extends Fragment {
     }
 
     // Make api call to get the movies from the database and return url of the image + title
-    private void getMovies() {
+    private void getCinemaMovies() {
 
         String url = "https://api.themoviedb.org/3/movie/now_playing?api_key="+ BuildConfig.TMDB_API_KEY +"&language=fr-FR&page=1&region=FR";
         mRequestQueue = Volley.newRequestQueue(view.getContext());
@@ -115,5 +165,24 @@ public class HomeFragment extends Fragment {
         });
         mRequestQueue.add(mStringRequest);
     }
+
+    private void firstLoadListMovies() {
+        // TODO : make the request for making a basic request at start (without search)
+        // Maybe do latest movies or something like that
+    }
+
+    private void firstQueryListMovies(String query) {
+        this.query = query;
+        // TODO : make the request when the user search for a movie
+    }
+
+    private void nextPageListMovies() {
+        page++;
+        // TODO : make the request
+    }
+
+
+
+
 
 }

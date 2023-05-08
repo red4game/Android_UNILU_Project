@@ -16,17 +16,17 @@ public abstract class LoadListener extends RecyclerView.OnScrollListener {
         int visibleItemCount = llm.getChildCount();
         int totalItemCount = llm.getItemCount();
         int firstVisibleItemPosition = llm.findFirstVisibleItemPosition();
-        if (!isLoading() && !isLastPage()) {
+        if (!isLoad() && !isLast()) {
             if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
-                loadMoreItems();
+                loadMore();
             }
         }
     }
 
-    protected abstract void loadMoreItems();
+    protected abstract void loadMore();
 
-    public abstract boolean isLastPage();
+    public abstract boolean isLast();
 
-    public abstract boolean isLoading();
+    public abstract boolean isLoad();
 
 }

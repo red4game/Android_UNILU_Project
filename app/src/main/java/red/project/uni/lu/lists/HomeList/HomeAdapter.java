@@ -99,8 +99,4 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
     }
-
-    private void getMovies(boolean titleSort, boolean ratingSort, boolean dateSort, List<String> keywords) {
-        // TODO : make the request
-    }
 }
