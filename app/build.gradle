@@ -65,8 +65,6 @@ dependencies {
     // adding api call library
     implementation 'com.android.volley:volley:1.2.1'
 
-    // pagination recycler view
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
 
 }
 
