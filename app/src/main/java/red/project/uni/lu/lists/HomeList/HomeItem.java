@@ -7,6 +7,8 @@ public class HomeItem {
     String dateOfRelease;
     String Rating;
 
+    int id;
+
     public HomeItem() {}
     public HomeItem(String previewUrl, String title, String description, String dateOfRelease, String Rating) {
         this.previewUrl = previewUrl;
@@ -55,6 +57,14 @@ public class HomeItem {
 
     public void setRating(String rating) {
         Rating = rating;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 

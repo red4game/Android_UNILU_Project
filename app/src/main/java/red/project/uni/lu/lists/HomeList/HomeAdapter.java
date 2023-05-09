@@ -1,11 +1,13 @@
 package red.project.uni.lu.lists.HomeList;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -55,6 +57,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             HomeProgressViewHolder homeProgressViewHolder = (HomeProgressViewHolder) holder;
             homeProgressViewHolder.progressBar.setVisibility(View.VISIBLE);
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            if (getItemViewType(position) == LOAD) return;
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("movieID", item.getId());
+            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_noWatchedDetailledFragment, bundle);
+        });
     }
 
     @Override
