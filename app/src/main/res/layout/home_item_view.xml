@@ -45,19 +45,28 @@
 
                 <TextView
                     android:id="@+id/HomeItemRating"
-                    android:layout_width="10dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Note / 10" />
 
                 <TextView
+                    android:id="@+id/HomeItemVoteCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="vote count" />
+
+                <TextView
                     android:id="@+id/HomeItemRelease"
-                    android:layout_width="82dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Date sortie" />
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

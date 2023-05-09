@@ -1,6 +1,7 @@
 package red.project.uni.lu.lists.HomeList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ArrowKeyMovementMethod;
 import android.view.LayoutInflater;
@@ -63,6 +64,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             homeViewHolder.HomeItemDescription.setMovementMethod(new ArrowKeyMovementMethod());
             homeViewHolder.HomeItemRating.setText(item.getRating());
             homeViewHolder.HomeItemRelease.setText(item.getDateOfRelease());
+            homeViewHolder.HomeItemVoteCount.setText(item.getVoteCount());
 
             homeViewHolder.HomeItemDescription.setOnTouchListener((v, event) -> {
                 v.getParent().requestDisallowInterceptTouchEvent(true);
@@ -253,6 +255,45 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         LocalDate date1 = LocalDate.parse(t1.getDateOfRelease());
                         return dateItem.compareTo(date1);
                     } catch (DateTimeParseException e){
+                        return -1;
+                    }
+                }
+            }
+        });
+        Collections.reverse(homeItems);
+        notifyDataSetChanged();
+    }
+
+    public void sortByVoteAsc(){
+        homeItems.sort(new Comparator<HomeItem>() {
+            @Override
+            public int compare(HomeItem homeItem, HomeItem t1) {
+                int NullTest = nullConditionTest(homeItem.getVoteCount(),t1.getVoteCount());
+                if (NullTest != 1000){
+                    return NullTest;
+                } else {
+                    try {
+                        return Integer.parseInt(homeItem.getVoteCount()) - Integer.parseInt(t1.getVoteCount());
+                    } catch (NumberFormatException e){
+                        return -1;
+                    }
+                }
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    public void sortByVoteDsc(){
+        homeItems.sort(new Comparator<HomeItem>() {
+            @Override
+            public int compare(HomeItem homeItem, HomeItem t1) {
+                int NullTest = nullConditionTestReverse(homeItem.getVoteCount(),t1.getVoteCount());
+                if (NullTest != 1000){
+                    return NullTest;
+                } else {
+                    try {
+                        return Integer.parseInt(homeItem.getVoteCount()) - Integer.parseInt(t1.getVoteCount());
+                    } catch (NumberFormatException e){
                         return -1;
                     }
                 }

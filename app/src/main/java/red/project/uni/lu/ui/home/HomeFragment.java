@@ -59,6 +59,7 @@ public class HomeFragment extends Fragment {
     Button sortTitle;
     Button sortDate;
     Button sortRating;
+    Button sortVote;
 
     SearchView searchBar;
 
@@ -80,6 +81,7 @@ public class HomeFragment extends Fragment {
     int sortStateTitle = 0;
     int sortStateDate = 0;
     int sortStateRating = 0;
+    int sortStateVote = 0;
 
 
 
@@ -94,6 +96,7 @@ public class HomeFragment extends Fragment {
         sortTitle = view.findViewById(R.id.HomeSortTitle);
         sortDate = view.findViewById(R.id.HomeSortDate);
         sortRating = view.findViewById(R.id.HomeSortRating);
+        sortVote = view.findViewById(R.id.HomeSortVote);
 
         resetSortButtons();
 
@@ -103,13 +106,18 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 if (sortStateTitle != 0){
                     CharSequence newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "-";
-                    sortDate.setText(newtextSortTitle);
+                    sortTitle.setText(newtextSortTitle);
                     sortStateTitle = 0;
                 }
                 if (sortStateDate != 0){
                     CharSequence newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "-";
                     sortDate.setText(newtextSortDate);
                     sortStateDate = 0;
+                }
+                if (sortStateVote != 0){
+                    CharSequence newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "-";
+                    sortVote.setText(newtextSortVote);
+                    sortStateVote = 0;
                 }
                 CharSequence newtextSortRating;
                 switch (sortStateRating) {
@@ -137,6 +145,174 @@ public class HomeFragment extends Fragment {
                         newtextSortRating =  sortRating.getText().subSequence(0,sortRating.getText().length()-1) + "-";
                         sortRating.setText(newtextSortRating);
                         sortStateRating = 0;
+                        if (query.length()>0) {
+                            // DO NOTHING FOR NOW
+                        } else {
+                            firstLoadListMovies();
+                        }
+                        break;
+                }
+                homeList.scrollToPosition(0);
+            }
+        });
+
+        sortTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sortStateDate != 0){
+                    CharSequence newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "-";
+                    sortDate.setText(newtextSortDate);
+                    sortStateDate = 0;
+                }
+                if (sortStateRating != 0){
+                    CharSequence newtextSortRating =  sortRating.getText().subSequence(0,sortRating.getText().length()-1) + "-";
+                    sortRating.setText(newtextSortRating);
+                    sortStateRating = 0;
+                }
+                if (sortStateVote != 0){
+                    CharSequence newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "-";
+                    sortVote.setText(newtextSortVote);
+                    sortStateVote = 0;
+                }
+                CharSequence newtextSortTitle;
+                switch (sortStateTitle) {
+                    case 0:
+                        newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "↑";
+                        sortTitle.setText(newtextSortTitle);
+                        sortStateTitle = 1;
+                        if (query.length()>0) {
+                            homeAdapter.sortByTitleAsc();
+                        } else {
+                            firstLoadListMovies();
+                        }
+                        break;
+                    case 1:
+                        newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "↓";
+                        sortTitle.setText(newtextSortTitle);
+                        sortStateTitle = 2;
+                        if (query.length()>0) {
+                            homeAdapter.sortByTitleDsc();
+                        } else {
+                            firstLoadListMovies();
+                        }
+                        break;
+                    case 2:
+                        newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "-";
+                        sortTitle.setText(newtextSortTitle);
+                        sortStateTitle = 0;
+                        if (query.length()>0) {
+                            // DO NOTHING FOR NOW
+                        } else {
+                            firstLoadListMovies();
+                        }
+                        break;
+                }
+                homeList.scrollToPosition(0);
+
+            }
+        });
+
+        sortDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sortStateTitle != 0){
+                    CharSequence newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "-";
+                    sortTitle.setText(newtextSortTitle);
+                    sortStateTitle = 0;
+                }
+                if (sortStateVote != 0){
+                    CharSequence newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "-";
+                    sortVote.setText(newtextSortVote);
+                    sortStateVote = 0;
+                }
+                if (sortStateRating != 0){
+                    CharSequence newtextSortRating =  sortRating.getText().subSequence(0,sortRating.getText().length()-1) + "-";
+                    sortRating.setText(newtextSortRating);
+                    sortStateRating = 0;
+                }
+                CharSequence newtextSortDate;
+                switch (sortStateDate) {
+                    case 0:
+                        newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "↑";
+                        sortDate.setText(newtextSortDate);
+                        sortStateDate = 1;
+                        if (query.length()>0) {
+                            homeAdapter.sortByDateAsc();
+                        } else {
+                            firstLoadListMovies();
+                        }
+                        break;
+                    case 1:
+                        newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "↓";
+                        sortDate.setText(newtextSortDate);
+                        sortStateDate = 2;
+                        if (query.length()>0) {
+                            homeAdapter.sortByDateDsc();
+                        } else {
+                            firstLoadListMovies();
+                        }
+                        break;
+                    case 2:
+                        newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "-";
+                        sortDate.setText(newtextSortDate);
+                        sortStateDate = 0;
+                        if (query.length()>0) {
+                            // DO NOTHING FOR NOW
+                        } else {
+                            firstLoadListMovies();
+                        }
+                        break;
+                }
+                homeList.scrollToPosition(0);
+            }
+        });
+
+        sortVote.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                if (sortStateTitle != 0){
+                    CharSequence newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "-";
+                    sortTitle.setText(newtextSortTitle);
+                    sortStateTitle = 0;
+                }
+                if (sortStateDate != 0){
+                    CharSequence newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "-";
+                    sortDate.setText(newtextSortDate);
+                    sortStateDate = 0;
+                }
+                if (sortStateRating != 0){
+                    CharSequence newtextSortRating =  sortRating.getText().subSequence(0,sortRating.getText().length()-1) + "-";
+                    sortRating.setText(newtextSortRating);
+                    sortStateRating = 0;
+                }
+                CharSequence newtextSortVote;
+                switch (sortStateVote) {
+                    case 0:
+                        newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "↑";
+                        sortVote.setText(newtextSortVote);
+                        sortStateVote = 1;
+                        if (query.length()>0) {
+                            homeAdapter.sortByVoteAsc();
+                        } else {
+                            firstLoadListMovies();
+                        }
+                        break;
+                    case 1:
+                        newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "↓";
+                        sortVote.setText(newtextSortVote);
+                        sortStateVote = 2;
+                        if (query.length()>0) {
+                            homeAdapter.sortByVoteDsc();
+                        } else {
+                            firstLoadListMovies();
+                        }
+                        break;
+                    case 2:
+                        newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "-";
+                        sortVote.setText(newtextSortVote);
+                        sortStateVote = 0;
                         if (query.length()>0) {
                             // DO NOTHING FOR NOW
                         } else {
@@ -336,7 +512,15 @@ public class HomeFragment extends Fragment {
                         sortOrder = "vote_average.desc";
                     }
                 } else {
-                    sortOrder = "popularity.desc";
+                    if (sortStateVote != 0) {
+                        if (sortStateVote == 1) {
+                            sortOrder = "vote_count.asc";
+                        } else {
+                            sortOrder = "vote_count.desc";
+                        }
+                    } else {
+                        sortOrder = "popularity.desc";
+                    }
                 }
             }
         }
@@ -358,8 +542,9 @@ public class HomeFragment extends Fragment {
                     String date = movie.getString("release_date");
                     String rating = movie.getString("vote_average");
                     String poster_path = movie.getString("poster_path");
+                    String vote_count = movie.getString("vote_count");
 
-                    HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating);
+                    HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating,vote_count);
                     homeItem.setId(id);
                     movies.add(homeItem);
                 }
@@ -398,8 +583,9 @@ public class HomeFragment extends Fragment {
                     String date = movie.getString("release_date");
                     String rating = movie.getString("vote_average");
                     String poster_path = movie.getString("poster_path");
+                    String vote_count = movie.getString("vote_count");
 
-                    HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating);
+                    HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating,vote_count);
                     homeItem.setId(id);
                     movies.add(homeItem);
                 }
@@ -442,8 +628,9 @@ public class HomeFragment extends Fragment {
                     String date = movie.getString("release_date");
                     String rating = movie.getString("vote_average");
                     String poster_path = movie.getString("poster_path");
+                    String vote_count = movie.getString("vote_count");
 
-                    HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating);
+                    HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating,vote_count);
                     homeItem.setId(id);
                     movies.add(homeItem);
                 }
@@ -481,8 +668,9 @@ public class HomeFragment extends Fragment {
                     String date = movie.getString("release_date");
                     String rating = movie.getString("vote_average");
                     String poster_path = movie.getString("poster_path");
+                    String vote_count = movie.getString("vote_count");
 
-                    HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating);
+                    HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating,vote_count);
                     homeItem.setId(id);
                     movies.add(homeItem);
                 }
@@ -541,6 +729,23 @@ public class HomeFragment extends Fragment {
                 break;
         }
 
+        CharSequence newtextSortVote;
+        switch (sortStateVote){
+            case 0:
+                newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "-";
+                sortVote.setText(newtextSortVote);
+                break;
+            case 1:
+                newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "↑";
+                sortVote.setText(newtextSortVote);
+                break;
+            case 2:
+                newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "↓";
+                sortVote.setText(newtextSortVote);
+                break;
+        }
+
+
         CharSequence newtextSortRating;
         switch (sortStateRating){
             case 0:
@@ -557,109 +762,6 @@ public class HomeFragment extends Fragment {
                 break;
         }
 
-
-
-
-        sortTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (sortStateDate != 0){
-                    CharSequence newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "-";
-                    sortDate.setText(newtextSortDate);
-                    sortStateDate = 0;
-                }
-                if (sortStateRating != 0){
-                    CharSequence newtextSortRating =  sortRating.getText().subSequence(0,sortRating.getText().length()-1) + "-";
-                    sortRating.setText(newtextSortRating);
-                    sortStateRating = 0;
-                }
-                CharSequence newtextSortTitle;
-                switch (sortStateTitle) {
-                    case 0:
-                        newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "↑";
-                        sortTitle.setText(newtextSortTitle);
-                        sortStateTitle = 1;
-                        if (query.length()>0) {
-                            homeAdapter.sortByTitleAsc();
-                        } else {
-                            firstLoadListMovies();
-                        }
-                        break;
-                    case 1:
-                        newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "↓";
-                        sortTitle.setText(newtextSortTitle);
-                        sortStateTitle = 2;
-                        if (query.length()>0) {
-                            homeAdapter.sortByTitleDsc();
-                        } else {
-                            firstLoadListMovies();
-                        }
-                        break;
-                    case 2:
-                        newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "-";
-                        sortTitle.setText(newtextSortTitle);
-                        sortStateTitle = 0;
-                        if (query.length()>0) {
-                            // DO NOTHING FOR NOW
-                        } else {
-                            firstLoadListMovies();
-                        }
-                        break;
-                }
-                homeList.scrollToPosition(0);
-
-            }
-        });
-
-        sortDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (sortStateTitle != 0){
-                    CharSequence newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "-";
-                    sortDate.setText(newtextSortTitle);
-                    sortStateTitle = 0;
-                }
-                if (sortStateRating != 0){
-                    CharSequence newtextSortRating =  sortRating.getText().subSequence(0,sortRating.getText().length()-1) + "-";
-                    sortRating.setText(newtextSortRating);
-                    sortStateRating = 0;
-                }
-                CharSequence newtextSortDate;
-                switch (sortStateDate) {
-                    case 0:
-                        newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "↑";
-                        sortDate.setText(newtextSortDate);
-                        sortStateDate = 1;
-                        if (query.length()>0) {
-                            homeAdapter.sortByDateAsc();
-                        } else {
-                            firstLoadListMovies();
-                        }
-                        break;
-                    case 1:
-                        newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "↓";
-                        sortDate.setText(newtextSortDate);
-                        sortStateDate = 2;
-                        if (query.length()>0) {
-                            homeAdapter.sortByDateDsc();
-                        } else {
-                            firstLoadListMovies();
-                        }
-                        break;
-                    case 2:
-                        newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "-";
-                        sortDate.setText(newtextSortDate);
-                        sortStateDate = 0;
-                        if (query.length()>0) {
-                            // DO NOTHING FOR NOW
-                        } else {
-                            firstLoadListMovies();
-                        }
-                        break;
-                }
-                homeList.scrollToPosition(0);
-            }
-        });
     }
 
 

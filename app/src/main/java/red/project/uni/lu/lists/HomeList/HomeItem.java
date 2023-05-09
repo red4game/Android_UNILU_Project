@@ -6,16 +6,18 @@ public class HomeItem {
     String description;
     String dateOfRelease;
     String Rating;
+    String voteCount;
 
     int id;
 
     public HomeItem() {}
-    public HomeItem(String previewUrl, String title, String description, String dateOfRelease, String Rating) {
+    public HomeItem(String previewUrl, String title, String description, String dateOfRelease, String Rating,String voteCount) {
         this.previewUrl = previewUrl;
         this.title = title;
         this.description = description;
         this.dateOfRelease = dateOfRelease;
         this.Rating = Rating;
+        this.voteCount = voteCount;
     }
 
 
@@ -67,5 +69,11 @@ public class HomeItem {
         this.id = id;
     }
 
+    public void setVoteCount(String voteCount) {
+        this.voteCount = voteCount;
+    }
 
+    public String getVoteCount() {
+        return voteCount;
+    }
 }

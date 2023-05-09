@@ -12,7 +12,7 @@ import red.project.uni.lu.R;
 
 public class HomeViewHolder extends RecyclerView.ViewHolder {
     ImageView HomeItemPreview;
-    TextView HomeItemTitle, HomeItemDescription, HomeItemRelease, HomeItemRating;
+    TextView HomeItemTitle, HomeItemDescription, HomeItemRelease, HomeItemRating, HomeItemVoteCount;
 
 
     public HomeViewHolder(@NonNull View itemView) {
@@ -22,5 +22,6 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         HomeItemDescription = itemView.findViewById(R.id.HomeItemDescription);
         HomeItemRelease = itemView.findViewById(R.id.HomeItemRelease);
         HomeItemRating = itemView.findViewById(R.id.HomeItemRating);
+        HomeItemVoteCount = itemView.findViewById(R.id.HomeItemVoteCount);
     }
 }
