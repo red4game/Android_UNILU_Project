@@ -97,7 +97,9 @@ public class HomeFragment extends Fragment {
         searchBar = view.findViewById(R.id.HomeSearch);
         homeList = view.findViewById(R.id.HomeRecyclerList);
 
-        models = new ArrayList<>();
+
+
+                models = new ArrayList<>();
         moviesIDS = new ArrayList<>();
 
         getCinemaMovies();
@@ -125,7 +127,7 @@ public class HomeFragment extends Fragment {
                 isLoading = true;
                 page++;
                 if (isSearch) {
-                    // TODO : next page for searching with query
+                    nextPageQueryListMovies();
                 } else {
                     nextFirstLoadListMovies();
                 }
@@ -143,14 +145,48 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if (s.length()>0) {
+                    homeList.scrollToPosition(0);
+                    firstQueryListMovies(s);
+                } else {
+                    homeList.scrollToPosition(0);
+                    firstLoadListMovies();
+                }
+                return false;
+            }
 
-        firstLoadListMovies();
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (s.length() == 0){
+                    homeList.scrollToPosition(0);
+                    firstLoadListMovies();
+                }
+                return false;
+            }
+        });
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null){
+            query = bundle.getString("query");
+        }
+        if (query.length() == 0) {
+            firstLoadListMovies();
+        } else {
+            firstQueryListMovies(query);
+        }
         return view;
     }
 
 
     @Override
     public void onDestroyView() {
+        Bundle bundle = new Bundle();
+        bundle.putString("query",query);
+        this.setArguments(bundle);
+
         super.onDestroyView();
         binding = null;
     }
@@ -260,6 +296,7 @@ public class HomeFragment extends Fragment {
                     movies.add(homeItem);
                 }
                 homeAdapter.replace(movies);
+
                 if (jsonObj.getInt("total_pages") == page) {
                     isLastPage = true;
                 } else {
@@ -319,12 +356,85 @@ public class HomeFragment extends Fragment {
 
     private void firstQueryListMovies(String query) {
         this.query = query;
-        // TODO : make the request when the user search for a movie
+        page=1;
+        isSearch = true;
+        isLastPage = false;
+        String url = "https://api.themoviedb.org/3/search/movie?api_key="+BuildConfig.TMDB_API_KEY+"&language=fr-FR&query="+query+"&page=1";
+
+        mStringRequest = new StringRequest(url, response -> {
+            try {
+                System.out.println(response);
+                JSONObject jsonObj = new JSONObject(response);
+                List<HomeItem> movies = new ArrayList<>();
+                for (int i = 0; i < jsonObj.getJSONArray("results").length(); i++) {
+                    JSONObject movie = jsonObj.getJSONArray("results").getJSONObject(i);
+                    int id = movie.getInt("id");
+                    String title = movie.getString("title");
+                    String description = movie.getString("overview");
+                    String date = movie.getString("release_date");
+                    String rating = movie.getString("vote_average");
+                    String poster_path = movie.getString("poster_path");
+
+                    HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating);
+                    homeItem.setId(id);
+                    movies.add(homeItem);
+                }
+                homeAdapter.replace(movies);
+                System.out.println("Number of pages :" + jsonObj.getInt("total_pages"));
+                if (jsonObj.getInt("total_pages") == page) {
+                    isLastPage = true;
+                } else {
+                    homeAdapter.addLoading();
+                }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+        }, error -> {
+            Log.i("Error", error.toString());
+        });
+        mRequestQueue.add(mStringRequest);
     }
 
-    private void nextPageListMovies() {
+    private void nextPageQueryListMovies() {
+        String url = "https://api.themoviedb.org/3/search/movie?api_key="+BuildConfig.TMDB_API_KEY+"&language=fr-FR&query="+query+"&page="+page;
 
-        // TODO : make the request to change page of the list of movies and if the page is the last one, change the boolean isLastPage to true
+
+        mStringRequest = new StringRequest(url, response -> {
+            try {
+                System.out.println(response);
+                JSONObject jsonObj = new JSONObject(response);
+                List<HomeItem> movies = new ArrayList<>();
+                for (int i = 0; i < jsonObj.getJSONArray("results").length(); i++) {
+                    JSONObject movie = jsonObj.getJSONArray("results").getJSONObject(i);
+                    int id = movie.getInt("id");
+                    String title = movie.getString("title");
+                    String description = movie.getString("overview");
+                    String date = movie.getString("release_date");
+                    String rating = movie.getString("vote_average");
+                    String poster_path = movie.getString("poster_path");
+
+                    HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating);
+                    homeItem.setId(id);
+                    movies.add(homeItem);
+                }
+                homeAdapter.removeLoading();
+                isLoading = false;
+                homeAdapter.addAll(movies);
+
+                if (jsonObj.getInt("total_pages") == page) {
+                    isLastPage = true;
+                } else {
+                    homeAdapter.addLoading();
+                }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+        }, error -> {
+            Log.i("Error", error.toString());
+        });
+        mRequestQueue.add(mStringRequest);
     }
 
 
