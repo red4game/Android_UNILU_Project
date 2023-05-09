@@ -90,6 +90,7 @@ public class HomeFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_home, container, false);
         imageSlider = view.findViewById(R.id.NowPlayingSlider);
+
         sortTitle = view.findViewById(R.id.HomeSortTitle);
         sortDate = view.findViewById(R.id.HomeSortDate);
         sortRating = view.findViewById(R.id.HomeSortRating);
@@ -110,6 +111,12 @@ public class HomeFragment extends Fragment {
         homeList.setLayoutManager(llm);
         homeList.setAdapter(homeAdapter);
 
+        homeList.setOnTouchListener((v, event) -> {
+            v.findViewById(R.id.HomeItemDescription).getParent().requestDisallowInterceptTouchEvent(false);
+            return false;
+        });
+
+
 
 
         homeList.addOnScrollListener(new LoadListener(llm) {
@@ -117,7 +124,7 @@ public class HomeFragment extends Fragment {
             protected void loadMore() {
                 isLoading = true;
                 page++;
-                if (isSearch){
+                if (isSearch) {
                     // TODO : next page for searching with query
                 } else {
                     nextFirstLoadListMovies();
@@ -136,22 +143,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        homeList.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-                                            @Override
-                                            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                                                return false;
-                                            }
 
-                                            @Override
-                                            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-
-                                            }
-
-                                            @Override
-                                            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-                                            }
-                                        });
         firstLoadListMovies();
         return view;
     }

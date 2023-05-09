@@ -2,6 +2,7 @@ package red.project.uni.lu.lists.HomeList;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.method.ArrowKeyMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,8 +55,13 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             HomeViewHolder homeViewHolder = (HomeViewHolder) holder;
             homeViewHolder.HomeItemTitle.setText(item.getTitle());
             homeViewHolder.HomeItemDescription.setText(item.getDescription());
-            homeViewHolder.HomeItemRelease.setText(item.getDateOfRelease());
+            homeViewHolder.HomeItemDescription.setMovementMethod(new ArrowKeyMovementMethod());
             homeViewHolder.HomeItemRating.setText(item.getRating());
+
+            homeViewHolder.HomeItemDescription.setOnTouchListener((v, event) -> {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            });
         } else {
             HomeProgressViewHolder homeProgressViewHolder = (HomeProgressViewHolder) holder;
             homeProgressViewHolder.progressBar.setVisibility(View.VISIBLE);
