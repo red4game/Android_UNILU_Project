@@ -23,9 +23,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     static final int ITEM = 1;
     boolean LoadingActive = false;
 
+
+
     public HomeAdapter() {
         this.homeItems = new ArrayList<>();
     }
+
 
 
 

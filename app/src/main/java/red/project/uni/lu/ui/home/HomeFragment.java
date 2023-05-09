@@ -1,6 +1,7 @@
 package red.project.uni.lu.ui.home;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,7 +19,10 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.denzcoskun.imageslider.ImageSlider;
@@ -32,6 +36,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import red.project.uni.lu.BuildConfig;
 import red.project.uni.lu.R;
@@ -58,10 +65,11 @@ public class HomeFragment extends Fragment {
     RecyclerView homeList;
     HomeAdapter homeAdapter;
     View view;
+    LinearLayoutManager llm;
 
 
 
-    int page = 1;
+    int page;
     boolean isLoading = false;
     boolean isLastPage = false;
     boolean isSearch = false;
@@ -79,6 +87,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+
         view = inflater.inflate(R.layout.fragment_home, container, false);
         imageSlider = view.findViewById(R.id.NowPlayingSlider);
         sortTitle = view.findViewById(R.id.HomeSortTitle);
@@ -93,10 +102,14 @@ public class HomeFragment extends Fragment {
         getCinemaMovies();
 
 
-        LinearLayoutManager llm = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
+        llm = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
+
         homeAdapter = new HomeAdapter();
+        // Because i fill my list asynchronously, i need to prevent the recycler view to restore its state
+        homeAdapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY);
         homeList.setLayoutManager(llm);
         homeList.setAdapter(homeAdapter);
+
 
 
         homeList.addOnScrollListener(new LoadListener(llm) {
@@ -139,18 +152,8 @@ public class HomeFragment extends Fragment {
 
                                             }
                                         });
-
-                firstLoadListMovies(); // Need to call this after getCinemaMovies ...
-
-
-
+        firstLoadListMovies();
         return view;
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        // TODO : save state of the fragment
     }
 
 
