@@ -13,7 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import red.project.uni.lu.R;
@@ -57,6 +62,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             homeViewHolder.HomeItemDescription.setText(item.getDescription());
             homeViewHolder.HomeItemDescription.setMovementMethod(new ArrowKeyMovementMethod());
             homeViewHolder.HomeItemRating.setText(item.getRating());
+            homeViewHolder.HomeItemRelease.setText(item.getDateOfRelease());
 
             homeViewHolder.HomeItemDescription.setOnTouchListener((v, event) -> {
                 v.getParent().requestDisallowInterceptTouchEvent(true);
@@ -87,6 +93,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void add(HomeItem item){
+        if (item.getRating() != null && item.getTitle()!=null && item.getDateOfRelease()!=null && item.getDescription()!=null && item.getPreviewUrl() != null){
+            homeItems.add(item);
+            notifyItemInserted(homeItems.size()-1);
+        }
+
+
+    }
+
+    public void addNullable(HomeItem item){
         homeItems.add(item);
         notifyItemInserted(homeItems.size()-1);
     }
@@ -105,7 +120,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void addLoading() {
         LoadingActive = true;
-        add(new HomeItem());
+        addNullable(new HomeItem());
     }
 
     public void removeLoading(){
@@ -117,5 +132,133 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             notifyItemRemoved(pos);
         }
 
+    }
+
+    private int nullConditionTest(String homeItem,String t1){
+        if (homeItem == null && t1 == null){
+            return 0;
+        } else if (homeItem == null) {
+            return 1;
+        } else if (t1 == null) {
+            return 1;
+        }
+        return 1000;
+    }
+
+    private int nullConditionTestReverse(String homeItem,String t1){
+        if (homeItem == null && t1 == null){
+            return 0;
+        } else if (homeItem == null) {
+            return -1;
+        } else if (t1 == null) {
+            return -1;
+        }
+        return 1000;
+    }
+
+    public void sortByTitleAsc(){
+        homeItems.sort(new Comparator<HomeItem>() {
+            @Override
+            public int compare(HomeItem homeItem, HomeItem t1) {
+                int NullTest = nullConditionTest(homeItem.getTitle(),t1.getTitle());
+                if (NullTest != 1000){
+                    return NullTest;
+                } else {
+                    return homeItem.getTitle().compareTo(t1.getTitle());
+                }
+
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    public void sortByTitleDsc(){
+        homeItems.sort(new Comparator<HomeItem>() {
+            @Override
+            public int compare(HomeItem homeItem, HomeItem t1) {
+                int NullTest = nullConditionTestReverse(homeItem.getTitle(),t1.getTitle());
+                if (NullTest != 1000){
+                    return NullTest;
+                } else {
+                    return homeItem.getTitle().compareTo(t1.getTitle());
+                }
+            }
+        });
+        Collections.reverse(homeItems);
+        notifyDataSetChanged();
+    }
+
+    public void sortByRatingAsc(){
+        homeItems.sort(new Comparator<HomeItem>() {
+            @Override
+            public int compare(HomeItem homeItem, HomeItem t1) {
+                int NullTest = nullConditionTest(homeItem.getRating(),t1.getRating());
+                if (NullTest != 1000){
+                    return NullTest;
+                } else {
+                    return homeItem.getRating().compareTo(t1.getRating());
+                }
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    public void sortByRatingDsc(){
+        homeItems.sort(new Comparator<HomeItem>() {
+            @Override
+            public int compare(HomeItem homeItem, HomeItem t1) {
+                int NullTest = nullConditionTestReverse(homeItem.getRating(),t1.getRating());
+                if (NullTest != 1000){
+                    return NullTest;
+                } else {
+                    return homeItem.getRating().compareTo(t1.getRating());
+                }
+            }
+        });
+        Collections.reverse(homeItems);
+        notifyDataSetChanged();
+    }
+
+    public void sortByDateAsc(){
+        homeItems.sort(new Comparator<HomeItem>() {
+            @Override
+            public int compare(HomeItem homeItem, HomeItem t1) {
+                int NullTest = nullConditionTest(homeItem.getDateOfRelease(),t1.getDateOfRelease());
+                if (NullTest != 1000){
+                    return NullTest;
+                } else {
+                    try {
+                        LocalDate dateItem = LocalDate.parse(homeItem.getDateOfRelease());
+                        LocalDate date1 = LocalDate.parse(t1.getDateOfRelease());
+                        return dateItem.compareTo(date1);
+                    } catch (DateTimeParseException e){
+                        return -1;
+                    }
+                }
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    public void sortByDateDsc(){
+        homeItems.sort(new Comparator<HomeItem>() {
+            @Override
+            public int compare(HomeItem homeItem, HomeItem t1) {
+                int NullTest = nullConditionTestReverse(homeItem.getDateOfRelease(),t1.getDateOfRelease());
+                if (NullTest != 1000){
+                    return NullTest;
+                } else {
+                    try {
+                        LocalDate dateItem = LocalDate.parse(homeItem.getDateOfRelease());
+                        LocalDate date1 = LocalDate.parse(t1.getDateOfRelease());
+                        return dateItem.compareTo(date1);
+                    } catch (DateTimeParseException e){
+                        return -1;
+                    }
+                }
+            }
+        });
+        Collections.reverse(homeItems);
+        notifyDataSetChanged();
     }
 }
