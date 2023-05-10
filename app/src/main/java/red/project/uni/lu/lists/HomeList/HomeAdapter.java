@@ -7,6 +7,7 @@ import android.text.method.ArrowKeyMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
@@ -57,19 +58,35 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         HomeItem item = homeItems.get(position);
         if (getItemViewType(position) == ITEM) {
-            Picasso.get().load(item.getPreviewUrl()).into(((HomeViewHolder) holder).HomeItemPreview);
-            HomeViewHolder homeViewHolder = (HomeViewHolder) holder;
-            homeViewHolder.HomeItemTitle.setText(item.getTitle());
-            homeViewHolder.HomeItemDescription.setText(item.getDescription());
-            homeViewHolder.HomeItemDescription.setMovementMethod(new ArrowKeyMovementMethod());
-            homeViewHolder.HomeItemRating.setText(item.getRating());
-            homeViewHolder.HomeItemRelease.setText(item.getDateOfRelease());
-            homeViewHolder.HomeItemVoteCount.setText(item.getVoteCount());
 
-            homeViewHolder.HomeItemDescription.setOnTouchListener((v, event) -> {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            });
+            HomeViewHolder homeViewHolder =  new HomeViewHolder(holder.itemView);
+
+            if (item.getTitle() != null) {
+                homeViewHolder.HomeItemTitle.setText(item.getTitle());
+            }
+            if (item.getDescription() != null) {
+                homeViewHolder.HomeItemDescription.setText(item.getDescription());
+                homeViewHolder.HomeItemDescription.setMovementMethod(new ArrowKeyMovementMethod());
+            }
+            if (item.getRating() != null) {
+                homeViewHolder.HomeItemRating.setText(item.getRating());
+            }
+            if (item.getDateOfRelease() != null) {
+                homeViewHolder.HomeItemRelease.setText(item.getDateOfRelease());
+            }
+            if (item.getVoteCount() != null) {
+                homeViewHolder.HomeItemVoteCount.setText(item.getVoteCount());
+            }
+            if (item.getPreviewUrl() != null) {
+                Picasso.get().load(item.getPreviewUrl()).into(homeViewHolder.HomeItemPreview);
+            }
+
+            if (homeViewHolder.HomeItemDescription != null) {
+                homeViewHolder.HomeItemDescription.setOnTouchListener((v, event) -> {
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    return false;
+                });
+            }
         } else {
             HomeProgressViewHolder homeProgressViewHolder = (HomeProgressViewHolder) holder;
             homeProgressViewHolder.progressBar.setVisibility(View.VISIBLE);
