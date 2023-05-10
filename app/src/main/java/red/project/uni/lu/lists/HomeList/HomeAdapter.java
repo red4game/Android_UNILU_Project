@@ -43,7 +43,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-
+        this.LoadingActive = false;
         if (viewType == ITEM) {
             View itemView = LayoutInflater.from(context).inflate(R.layout.home_item_view, parent, false);
             return new HomeViewHolder(itemView);
@@ -76,11 +76,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if (getItemViewType(position) == LOAD) return;
-
-            Bundle bundle = new Bundle();
-            bundle.putInt("movieID", item.getId());
-            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_noWatchedDetailledFragment, bundle);
+            if (getItemViewType(position) != LOAD) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("movieID", item.getId());
+                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_noWatchedDetailledFragment, bundle);
+            }
         });
     }
 
@@ -114,6 +114,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        homeItems.clear();
+        notifyDataSetChanged();
+    }
+
     public void addAll(List<HomeItem> homeItems) {
         for (HomeItem item : homeItems) {
             add(item);
@@ -133,7 +138,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             homeItems.remove(pos);
             notifyItemRemoved(pos);
         }
+    }
 
+    public void setLoadingActiveFalse(){
+        LoadingActive = false;
     }
 
     private int nullConditionTest(String homeItem,String t1){

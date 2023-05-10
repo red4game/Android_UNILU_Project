@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -61,6 +62,8 @@ public class HomeFragment extends Fragment {
     Button sortRating;
     Button sortVote;
 
+    TextView noItemText;
+
     SearchView searchBar;
 
     RecyclerView homeList;
@@ -97,6 +100,7 @@ public class HomeFragment extends Fragment {
         sortDate = view.findViewById(R.id.HomeSortDate);
         sortRating = view.findViewById(R.id.HomeSortRating);
         sortVote = view.findViewById(R.id.HomeSortVote);
+        noItemText = view.findViewById(R.id.NoItemText);
 
         resetSortButtons();
 
@@ -547,13 +551,25 @@ public class HomeFragment extends Fragment {
                     HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating,vote_count);
                     homeItem.setId(id);
                     movies.add(homeItem);
-                }
-                homeAdapter.replace(movies);
 
-                if (jsonObj.getInt("total_pages") == page) {
-                    isLastPage = true;
+                }
+                isLoading = false;
+                if (movies.size() == 0) {
+                    homeAdapter.clear();
+                    homeList.setVisibility(View.GONE);
+                    noItemText.setVisibility(View.VISIBLE);
+
                 } else {
-                    homeAdapter.addLoading();
+                    homeList.setVisibility(View.VISIBLE);
+                    noItemText.setVisibility(View.GONE);
+
+                    homeAdapter.replace(movies);
+
+                    if (jsonObj.getInt("total_pages") == page) {
+                        isLastPage = true;
+                    } else {
+                        homeAdapter.addLoading();
+                    }
                 }
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -633,13 +649,29 @@ public class HomeFragment extends Fragment {
                     HomeItem homeItem = new HomeItem("https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + poster_path, title, description, date, rating,vote_count);
                     homeItem.setId(id);
                     movies.add(homeItem);
+
                 }
-                homeAdapter.replace(movies);
-                System.out.println("Number of pages :" + jsonObj.getInt("total_pages"));
-                if (jsonObj.getInt("total_pages") == page) {
-                    isLastPage = true;
+
+                isLoading = false;
+                if (movies.size() == 0) {
+                    homeAdapter.clear();
+                    homeList.setVisibility(View.GONE);
+                    noItemText.setVisibility(View.VISIBLE);
+
                 } else {
-                    homeAdapter.addLoading();
+                    homeList.setVisibility(View.VISIBLE);
+                    noItemText.setVisibility(View.GONE);
+
+                    homeAdapter.replace(movies);
+                    System.out.println("Number of pages :" + jsonObj.getInt("total_pages"));
+                    System.out.println("Current page :" + page);
+
+                    if (jsonObj.getInt("total_pages") == page) {
+                        isLastPage = true;
+                    } else {
+
+                        homeAdapter.addLoading();
+                    }
                 }
             } catch (JSONException e) {
                 throw new RuntimeException(e);
@@ -697,70 +729,25 @@ public class HomeFragment extends Fragment {
     public void resetSortButtons(){
         // set the text for buttons when restoring state it is useful
         CharSequence newtextSortTitle;
-        switch (sortStateTitle){
-            case 0:
-                newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "-";
-                sortTitle.setText(newtextSortTitle);
-                break;
-            case 1:
-                newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "↑";
-                sortTitle.setText(newtextSortTitle);
-                break;
-            case 2:
-                newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "↓";
-                sortTitle.setText(newtextSortTitle);
-                break;
-        }
-
+        newtextSortTitle =  sortTitle.getText().subSequence(0,sortTitle.getText().length()-1) + "-";
+        sortTitle.setText(newtextSortTitle);
+        sortStateTitle = 0;
 
         CharSequence newtextSortDate;
-        switch (sortStateDate){
-            case 0:
-                newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "-";
-                sortDate.setText(newtextSortDate);
-                break;
-            case 1:
-                newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "↑";
-                sortDate.setText(newtextSortDate);
-                break;
-            case 2:
-                newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "↓";
-                sortDate.setText(newtextSortDate);
-                break;
-        }
+        newtextSortDate =  sortDate.getText().subSequence(0,sortDate.getText().length()-1) + "-";
+        sortDate.setText(newtextSortDate);
+        sortStateDate = 0;
 
         CharSequence newtextSortVote;
-        switch (sortStateVote){
-            case 0:
-                newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "-";
-                sortVote.setText(newtextSortVote);
-                break;
-            case 1:
-                newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "↑";
-                sortVote.setText(newtextSortVote);
-                break;
-            case 2:
-                newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "↓";
-                sortVote.setText(newtextSortVote);
-                break;
-        }
+        newtextSortVote =  sortVote.getText().subSequence(0,sortVote.getText().length()-1) + "-";
+        sortVote.setText(newtextSortVote);
+        sortStateVote = 0;
 
 
         CharSequence newtextSortRating;
-        switch (sortStateRating){
-            case 0:
-                newtextSortRating =  sortRating.getText().subSequence(0,sortRating.getText().length()-1) + "-";
-                sortRating.setText(newtextSortRating);
-                break;
-            case 1:
-                newtextSortRating =  sortRating.getText().subSequence(0,sortRating.getText().length()-1) + "↑";
-                sortRating.setText(newtextSortRating);
-                break;
-            case 2:
-                newtextSortRating =  sortRating.getText().subSequence(0,sortRating.getText().length()-1) + "↓";
-                sortRating.setText(newtextSortRating);
-                break;
-        }
+        newtextSortRating =  sortRating.getText().subSequence(0,sortRating.getText().length()-1) + "-";
+        sortRating.setText(newtextSortRating);
+        sortStateRating = 0;
 
     }
 
