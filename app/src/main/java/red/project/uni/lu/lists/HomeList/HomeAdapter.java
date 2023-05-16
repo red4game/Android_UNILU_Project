@@ -60,6 +60,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (getItemViewType(position) == ITEM) {
 
             HomeViewHolder homeViewHolder =  new HomeViewHolder(holder.itemView);
+            
 
             if (item.getTitle() != null) {
                 homeViewHolder.HomeItemTitle.setText(item.getTitle());

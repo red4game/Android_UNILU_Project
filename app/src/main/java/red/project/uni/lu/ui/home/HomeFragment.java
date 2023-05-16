@@ -577,6 +577,7 @@ public class HomeFragment extends Fragment {
 
                     if (jsonObj.getInt("total_pages") == page) {
                         isLastPage = true;
+                        homeAdapter.setLoadingActiveFalse();
                     } else {
                         homeAdapter.addLoading();
                     }
@@ -678,6 +679,7 @@ public class HomeFragment extends Fragment {
 
                     if (jsonObj.getInt("total_pages") == page) {
                         isLastPage = true;
+                        homeAdapter.setLoadingActiveFalse();
                     } else {
 
                         homeAdapter.addLoading();

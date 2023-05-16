@@ -14,6 +14,7 @@ public class ToWatchViewHolder extends RecyclerView.ViewHolder {
         ImageView preview;
         TextView title, description, date, genre, director;
         public ToWatchViewHolder(@NonNull View itemView) {
+            // TODO : recreate the view and change view holder for an item
             super(itemView);
             preview = itemView.findViewById(R.id.toWatchPreview);
             title = itemView.findViewById(R.id.toWatchTitle);

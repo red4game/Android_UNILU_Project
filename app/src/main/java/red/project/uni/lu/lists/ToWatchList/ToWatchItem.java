@@ -2,31 +2,24 @@ package red.project.uni.lu.lists.ToWatchList;
 
 import android.media.Image;
 
+import java.util.List;
+
 public class ToWatchItem {
     String previewUrl;
     String title;
-    String description;
+    String notes;
     String dateOfRelease;
-    String genre;
-    String director;
-    // maybe add other fields
+    String dateToWatch;
 
+    int id;
+    int MovieID;
 
-    public ToWatchItem(String previewUrl, String title, String description, String dateOfRelease, String genre, String director) {
-        this.previewUrl = previewUrl;
-        this.title = title;
-        this.description = description;
-        this.dateOfRelease = dateOfRelease;
-        this.genre = genre;
-        this.director = director;
-    }
-
-    public String getPreview() {
+    public String getPreviewUrl() {
         return previewUrl;
     }
 
-    public void setPreview(String preview) {
-        this.previewUrl = preview;
+    public void setPreviewUrl(String previewUrl) {
+        this.previewUrl = previewUrl;
     }
 
     public String getTitle() {
@@ -37,12 +30,12 @@ public class ToWatchItem {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public String getDateOfRelease() {
@@ -53,19 +46,37 @@ public class ToWatchItem {
         this.dateOfRelease = dateOfRelease;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getDateToWatch() {
+        return dateToWatch;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setDateToWatch(String dateToWatch) {
+        this.dateToWatch = dateToWatch;
     }
 
-    public String getDirector() {
-        return director;
+    public int getMovieID() {
+        return MovieID;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
+    public void setMovieID(int id) {
+        this.MovieID = id;
     }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public ToWatchItem(String previewUrl, String title, String notes, String dateOfRelease, String dateToWatch) {
+        this.previewUrl = previewUrl;
+        this.title = title;
+        this.notes = notes;
+        this.dateOfRelease = dateOfRelease;
+        this.dateToWatch = dateToWatch;
+    }
+
+    public ToWatchItem() {}
 }
