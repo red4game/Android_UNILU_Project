@@ -11,7 +11,6 @@ public class ToWatchItem {
     String dateOfRelease;
     String dateToWatch;
 
-    int id;
     int MovieID;
 
     public String getPreviewUrl() {
@@ -60,13 +59,6 @@ public class ToWatchItem {
 
     public void setMovieID(int id) {
         this.MovieID = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
     }
 
 

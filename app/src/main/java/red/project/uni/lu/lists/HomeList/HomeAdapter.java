@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ArrowKeyMovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             if (item.getDescription() != null) {
                 homeViewHolder.HomeItemDescription.setText(item.getDescription());
-                homeViewHolder.HomeItemDescription.setMovementMethod(new ArrowKeyMovementMethod());
+                homeViewHolder.HomeItemDescription.setMovementMethod(new ScrollingMovementMethod());
             }
             if (item.getRating() != null) {
                 homeViewHolder.HomeItemRating.setText(item.getRating());

@@ -1,5 +1,6 @@
 package red.project.uni.lu.lists.ToWatchList;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -31,9 +32,17 @@ public class ToWatchAdapter extends RecyclerView.Adapter<ToWatchViewHolder> {
         ToWatchItem toWatchItem = toWatchItems.get(position);
         holder.title.setText(toWatchItem.getTitle());
         holder.notes.setText(toWatchItem.getNotes());
+        holder.notes.setMovementMethod(new ScrollingMovementMethod());
         holder.dateOfRelease.setText(toWatchItem.getDateOfRelease());
         holder.dateToWatch.setText(toWatchItem.getDateToWatch());
         Picasso.get().load(toWatchItem.getPreviewUrl()).into(holder.preview);
+
+        if (holder.notes != null) {
+            holder.notes.setOnTouchListener((v, event) -> {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            });
+        }
     }
 
     @Override
