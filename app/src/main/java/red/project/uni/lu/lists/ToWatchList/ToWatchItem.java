@@ -70,12 +70,13 @@ public class ToWatchItem {
     }
 
 
-    public ToWatchItem(String previewUrl, String title, String notes, String dateOfRelease, String dateToWatch) {
+    public ToWatchItem(String previewUrl, String title, String notes, String dateOfRelease, String dateToWatch, int MovieID) {
         this.previewUrl = previewUrl;
         this.title = title;
         this.notes = notes;
         this.dateOfRelease = dateOfRelease;
         this.dateToWatch = dateToWatch;
+        this.MovieID = MovieID;
     }
 
     public ToWatchItem() {}

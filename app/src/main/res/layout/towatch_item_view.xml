@@ -1,59 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/toWatchPreview"
-            android:layout_width="142dp"
-            android:layout_height="match_parent"
+            android:id="@+id/ToWatchItemPreview"
+            android:layout_width="108dp"
+            android:layout_height="178dp"
+            android:layout_weight="1"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="286dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/toWatchTitle"
-                android:layout_width="263dp"
-                android:layout_height="wrap_content"
-                android:text="Title of the movie" />
-
-            <TextView
-                android:id="@+id/toWatchDescription"
-                android:layout_width="match_parent"
-                android:layout_height="71dp"
-                android:text="Description of the movie" />
-
-            <TextView
-                android:id="@+id/toWatchGenre"
+                android:id="@+id/ToWatchItemTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Genre" />
+                android:gravity="center"
+                android:text="Titre du film" />
 
             <TextView
-                android:id="@+id/toWatchDirector"
+                android:id="@+id/ToWatchItemNotes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Director" />
+                android:layout_height="104dp"
+                android:scrollbars="vertical"
+                android:text="Notes sur le film" />
 
-            <TextView
-                android:id="@+id/toWatchDate"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Date of release" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/ToWatchItemDateToWatch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Date à regarder" />
+
+                <TextView
+                    android:id="@+id/ToWatchItemDateOfRelease"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Date sortie" />
+
+            </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
-
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

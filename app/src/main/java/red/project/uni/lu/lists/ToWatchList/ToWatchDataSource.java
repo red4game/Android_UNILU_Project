@@ -55,6 +55,28 @@ public class ToWatchDataSource {
         return newToWatchItem;
     }
 
+    public ToWatchItem createToWatchItem(ToWatchItem item){
+        android.database.Cursor cursor = database.query(ToWatchSQLiteHelper.TABLE_TO_WATCH, allColumns, ToWatchSQLiteHelper.COLUMN_MOVIE_ID + " = " + item.getMovieID(), null, null, null, null);
+        cursor.moveToFirst();
+        ToWatchItem newToWatchItem = null;
+        if (cursor.getCount() == 0) {
+            android.content.ContentValues values = new android.content.ContentValues();
+            values.put(ToWatchSQLiteHelper.COLUMN_TITLE, item.getTitle());
+            values.put(ToWatchSQLiteHelper.COLUMN_PREVIEW_URL, item.getPreviewUrl());
+            values.put(ToWatchSQLiteHelper.COLUMN_NOTES, item.getNotes());
+            values.put(ToWatchSQLiteHelper.COLUMN_DATE_OF_RELEASE, item.getDateOfRelease());
+            values.put(ToWatchSQLiteHelper.COLUMN_DATE_TO_WATCH, item.getDateToWatch());
+            values.put(ToWatchSQLiteHelper.COLUMN_MOVIE_ID, item.getMovieID());
+            long insertId = database.insert(ToWatchSQLiteHelper.TABLE_TO_WATCH, null, values);
+            android.database.Cursor cursor2 = database.query(ToWatchSQLiteHelper.TABLE_TO_WATCH, allColumns, ToWatchSQLiteHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
+            cursor2.moveToFirst();
+            newToWatchItem = cursorToToWatchItem(cursor2);
+            cursor2.close();
+        }
+        cursor.close();
+        return newToWatchItem;
+    }
+
     public void deleteToWatchItem(ToWatchItem toWatchItem) {
         int id = toWatchItem.getId();
         database.delete(ToWatchSQLiteHelper.TABLE_TO_WATCH, ToWatchSQLiteHelper.COLUMN_ID + " = " + id, null);

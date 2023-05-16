@@ -28,7 +28,12 @@ public class ToWatchAdapter extends RecyclerView.Adapter<ToWatchViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ToWatchViewHolder holder, int position) {
-        // TODO : when the view is changed, put good data in the view
+        ToWatchItem toWatchItem = toWatchItems.get(position);
+        holder.title.setText(toWatchItem.getTitle());
+        holder.notes.setText(toWatchItem.getNotes());
+        holder.dateOfRelease.setText(toWatchItem.getDateOfRelease());
+        holder.dateToWatch.setText(toWatchItem.getDateToWatch());
+        Picasso.get().load(toWatchItem.getPreviewUrl()).into(holder.preview);
     }
 
     @Override

@@ -12,15 +12,14 @@ import red.project.uni.lu.R;
 public class ToWatchViewHolder extends RecyclerView.ViewHolder {
 
         ImageView preview;
-        TextView title, description, date, genre, director;
+        TextView title, notes, dateToWatch, dateOfRelease;
         public ToWatchViewHolder(@NonNull View itemView) {
-            // TODO : recreate the view and change view holder for an item
+
             super(itemView);
-            preview = itemView.findViewById(R.id.toWatchPreview);
-            title = itemView.findViewById(R.id.toWatchTitle);
-            description = itemView.findViewById(R.id.toWatchDescription);
-            date = itemView.findViewById(R.id.toWatchDate);
-            genre = itemView.findViewById(R.id.toWatchGenre);
-            director = itemView.findViewById(R.id.toWatchDirector);
+            preview = itemView.findViewById(R.id.ToWatchItemPreview);
+            title = itemView.findViewById(R.id.ToWatchItemTitle);
+            notes = itemView.findViewById(R.id.ToWatchItemNotes);
+            dateToWatch = itemView.findViewById(R.id.ToWatchItemDateToWatch);
+            dateOfRelease = itemView.findViewById(R.id.ToWatchItemDateOfRelease);
         }
 }
