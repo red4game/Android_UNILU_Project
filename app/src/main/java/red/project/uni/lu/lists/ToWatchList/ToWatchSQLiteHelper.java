@@ -14,10 +14,12 @@ public class ToWatchSQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DATE_OF_RELEASE = "date_of_release";
     public static final String COLUMN_DATE_TO_WATCH = "date_to_watch";
 
+    public static final String COLUMN_DATE_ADDED = "date_added";
+
 
 
     private static final String DATABASE_NAME = "to_watch.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String DATABASE_CREATE = "create table "
             + TABLE_TO_WATCH + "(" + COLUMN_MOVIE_ID + " integer primary key autoincrement, "
@@ -25,7 +27,8 @@ public class ToWatchSQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_PREVIEW_URL + " text not null, "
             + COLUMN_NOTES + " text not null, "
             + COLUMN_DATE_OF_RELEASE + " text not null, "
-            + COLUMN_DATE_TO_WATCH + " text not null);";
+            + COLUMN_DATE_TO_WATCH + " text not null, "
+            + COLUMN_DATE_ADDED + " text not null);";
 
 
     public ToWatchSQLiteHelper(Context context) {

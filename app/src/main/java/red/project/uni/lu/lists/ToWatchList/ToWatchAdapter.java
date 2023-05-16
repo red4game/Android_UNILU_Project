@@ -35,6 +35,7 @@ public class ToWatchAdapter extends RecyclerView.Adapter<ToWatchViewHolder> {
         holder.notes.setMovementMethod(new ScrollingMovementMethod());
         holder.dateOfRelease.setText(toWatchItem.getDateOfRelease());
         holder.dateToWatch.setText(toWatchItem.getDateToWatch());
+        holder.dateAdded.setText(toWatchItem.getDateAdded());
         Picasso.get().load(toWatchItem.getPreviewUrl()).into(holder.preview);
 
         if (holder.notes != null) {

@@ -12,7 +12,7 @@ import red.project.uni.lu.R;
 public class ToWatchViewHolder extends RecyclerView.ViewHolder {
 
         ImageView preview;
-        TextView title, notes, dateToWatch, dateOfRelease;
+        TextView title, notes, dateToWatch, dateOfRelease, dateAdded;
         public ToWatchViewHolder(@NonNull View itemView) {
 
             super(itemView);
@@ -21,5 +21,6 @@ public class ToWatchViewHolder extends RecyclerView.ViewHolder {
             notes = itemView.findViewById(R.id.ToWatchItemNotes);
             dateToWatch = itemView.findViewById(R.id.ToWatchItemDateToWatch);
             dateOfRelease = itemView.findViewById(R.id.ToWatchItemDateOfRelease);
+            dateAdded = itemView.findViewById(R.id.ToWatchItemDateAdded);
         }
 }

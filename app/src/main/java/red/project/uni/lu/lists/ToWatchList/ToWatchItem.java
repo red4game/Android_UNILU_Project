@@ -11,7 +11,19 @@ public class ToWatchItem {
     String dateOfRelease;
     String dateToWatch;
 
+    String dateAdded;
+
     int MovieID;
+
+    public String getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(String dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+
 
     public String getPreviewUrl() {
         return previewUrl;
