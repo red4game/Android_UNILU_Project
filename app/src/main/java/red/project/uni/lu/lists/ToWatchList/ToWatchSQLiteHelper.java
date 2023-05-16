@@ -19,7 +19,7 @@ public class ToWatchSQLiteHelper extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "to_watch.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     private static final String DATABASE_CREATE = "create table "
             + TABLE_TO_WATCH + "(" + COLUMN_MOVIE_ID + " integer primary key autoincrement, "

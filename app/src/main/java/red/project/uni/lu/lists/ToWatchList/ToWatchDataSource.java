@@ -3,9 +3,13 @@ package red.project.uni.lu.lists.ToWatchList;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 public class ToWatchDataSource {
 
     private ToWatchSQLiteHelper dbHelper;
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private SQLiteDatabase database;
     private String[] allColumns = {ToWatchSQLiteHelper.COLUMN_MOVIE_ID, ToWatchSQLiteHelper.COLUMN_TITLE, ToWatchSQLiteHelper.COLUMN_PREVIEW_URL, ToWatchSQLiteHelper.COLUMN_NOTES, ToWatchSQLiteHelper.COLUMN_DATE_OF_RELEASE, ToWatchSQLiteHelper.COLUMN_DATE_TO_WATCH, ToWatchSQLiteHelper.COLUMN_DATE_ADDED};
 
@@ -45,7 +49,8 @@ public class ToWatchDataSource {
             values.put(ToWatchSQLiteHelper.COLUMN_DATE_OF_RELEASE, dateOfRelease);
             values.put(ToWatchSQLiteHelper.COLUMN_DATE_TO_WATCH, dateToWatch);
             values.put(ToWatchSQLiteHelper.COLUMN_MOVIE_ID, movieId);
-            values.put(ToWatchSQLiteHelper.COLUMN_DATE_ADDED, java.util.Calendar.getInstance().getTime().toString());
+
+            values.put(ToWatchSQLiteHelper.COLUMN_DATE_ADDED, dateFormat.format(new java.util.Date()));
             long insertId = database.insert(ToWatchSQLiteHelper.TABLE_TO_WATCH, null, values);
             android.database.Cursor cursor2 = database.query(ToWatchSQLiteHelper.TABLE_TO_WATCH, allColumns, ToWatchSQLiteHelper.COLUMN_MOVIE_ID + " = " + insertId, null, null, null, null);
             cursor2.moveToFirst();
@@ -68,7 +73,7 @@ public class ToWatchDataSource {
             values.put(ToWatchSQLiteHelper.COLUMN_DATE_OF_RELEASE, item.getDateOfRelease());
             values.put(ToWatchSQLiteHelper.COLUMN_DATE_TO_WATCH, item.getDateToWatch());
             values.put(ToWatchSQLiteHelper.COLUMN_MOVIE_ID, item.getMovieID());
-            values.put(ToWatchSQLiteHelper.COLUMN_DATE_ADDED, java.util.Calendar.getInstance().getTime().toString());
+            values.put(ToWatchSQLiteHelper.COLUMN_DATE_ADDED, dateFormat.format(new java.util.Date()));
             long insertId = database.insert(ToWatchSQLiteHelper.TABLE_TO_WATCH, null, values);
             android.database.Cursor cursor2 = database.query(ToWatchSQLiteHelper.TABLE_TO_WATCH, allColumns, ToWatchSQLiteHelper.COLUMN_MOVIE_ID + " = " + insertId, null, null, null, null);
             cursor2.moveToFirst();
