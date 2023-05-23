@@ -1,4 +1,4 @@
-package red.project.uni.lu.ui.slideshow;
+package red.project.uni.lu.ui.toWatch;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,19 +10,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import red.project.uni.lu.R;
 import red.project.uni.lu.lists.ToWatchList.ToWatchAdapter;
 import red.project.uni.lu.lists.ToWatchList.ToWatchDataSource;
 import red.project.uni.lu.lists.ToWatchList.ToWatchItem;
-import red.project.uni.lu.databinding.FragmentSlideshowBinding;
-import red.project.uni.lu.lists.ToWatchList.ToWatchSQLiteHelper;
 
 public class ToWatchFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
     private ToWatchDataSource toWatchDataSource;
     private ToWatchAdapter toWatchAdapter;
     private RecyclerView toWatchList;
@@ -30,7 +26,7 @@ public class ToWatchFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        View view = inflater.inflate(R.layout.fragment_towatch, container, false);
 
         toWatchList = view.findViewById(R.id.recyclerToWatch);
 
@@ -84,6 +80,5 @@ public class ToWatchFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 }

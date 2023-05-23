@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/WatchedItemPreview"
+                android:layout_width="108dp"
+                android:layout_height="178dp"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:layout_width="286dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/WatchedItemTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Titre du film" />
+
+                <TextView
+                    android:id="@+id/WatchedItemNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="104dp"
+                    android:scrollbars="vertical"
+                    android:text="Notes sur le film" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/WatchedItemDateAdded"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Date film ajouté" />
+
+                    <TextView
+                        android:id="@+id/WatchedItemDateWatched"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Date film regardé" />
+
+                    <TextView
+                        android:id="@+id/WatchedItemDateOfRelease"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Date sortie" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RatingBar
+            android:id="@+id/WatchedItemRatingBar"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:numStars="10"
+            android:progressTint="#F61D1D"
+            android:rating="9" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
