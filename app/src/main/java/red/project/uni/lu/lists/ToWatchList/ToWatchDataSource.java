@@ -43,12 +43,13 @@ public class ToWatchDataSource {
         ToWatchItem newToWatchItem = null;
         if (cursor.getCount() == 0) {
             android.content.ContentValues values = new android.content.ContentValues();
+            values.put(ToWatchSQLiteHelper.COLUMN_MOVIE_ID, movieId);
             values.put(ToWatchSQLiteHelper.COLUMN_TITLE, title);
             values.put(ToWatchSQLiteHelper.COLUMN_PREVIEW_URL, previewUrl);
             values.put(ToWatchSQLiteHelper.COLUMN_NOTES, notes);
             values.put(ToWatchSQLiteHelper.COLUMN_DATE_OF_RELEASE, dateOfRelease);
             values.put(ToWatchSQLiteHelper.COLUMN_DATE_TO_WATCH, dateToWatch);
-            values.put(ToWatchSQLiteHelper.COLUMN_MOVIE_ID, movieId);
+
 
             values.put(ToWatchSQLiteHelper.COLUMN_DATE_ADDED, dateFormat.format(new java.util.Date()));
             long insertId = database.insert(ToWatchSQLiteHelper.TABLE_TO_WATCH, null, values);
@@ -67,12 +68,12 @@ public class ToWatchDataSource {
         ToWatchItem newToWatchItem = null;
         if (cursor.getCount() == 0) {
             android.content.ContentValues values = new android.content.ContentValues();
+            values.put(ToWatchSQLiteHelper.COLUMN_MOVIE_ID, item.getMovieID());
             values.put(ToWatchSQLiteHelper.COLUMN_TITLE, item.getTitle());
             values.put(ToWatchSQLiteHelper.COLUMN_PREVIEW_URL, item.getPreviewUrl());
             values.put(ToWatchSQLiteHelper.COLUMN_NOTES, item.getNotes());
             values.put(ToWatchSQLiteHelper.COLUMN_DATE_OF_RELEASE, item.getDateOfRelease());
             values.put(ToWatchSQLiteHelper.COLUMN_DATE_TO_WATCH, item.getDateToWatch());
-            values.put(ToWatchSQLiteHelper.COLUMN_MOVIE_ID, item.getMovieID());
             values.put(ToWatchSQLiteHelper.COLUMN_DATE_ADDED, dateFormat.format(new java.util.Date()));
             long insertId = database.insert(ToWatchSQLiteHelper.TABLE_TO_WATCH, null, values);
             android.database.Cursor cursor2 = database.query(ToWatchSQLiteHelper.TABLE_TO_WATCH, allColumns, ToWatchSQLiteHelper.COLUMN_MOVIE_ID + " = " + insertId, null, null, null, null);

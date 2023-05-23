@@ -46,10 +46,12 @@ public class FilmDetailledFragment extends Fragment {
 
 
     ImageView poster;
+    String posterPath;
     TextView title;
     TextView description;
     TextView genres;
     TextView rating;
+    String releaseDate;
     Button addWatched;
     Button addToWatch;
 
@@ -106,9 +108,11 @@ public class FilmDetailledFragment extends Fragment {
 
                 // Setup the fields
                 Picasso.get().load("https://image.tmdb.org/t/p/w500" + jsonObj.getString("poster_path")).into(poster);
+                posterPath = "https://image.tmdb.org/t/p/w500"+jsonObj.getString("poster_path");
                 title.setText(jsonObj.getString("title"));
                 description.setText(jsonObj.getString("overview"));
                 description.setMovementMethod(new android.text.method.ScrollingMovementMethod());
+                releaseDate = jsonObj.getString("release_date");
                 StringBuilder genres = new StringBuilder("Genres : \n");
                 for (int i = 0; i < jsonObj.getJSONArray("genres").length(); i++) {
                     genres.append(" - ").append(jsonObj.getJSONArray("genres").getJSONObject(i).getString("name")).append("\n");
@@ -130,7 +134,7 @@ public class FilmDetailledFragment extends Fragment {
                         return;
                     } else {
                         System.out.println("Add to watch");
-                        AddToWatchDialog dialog = AddToWatchDialog.newInstance(movieId);
+                        AddToWatchDialog dialog = AddToWatchDialog.newInstance(movieId, title.getText().toString(),posterPath,releaseDate,description.getText().toString());
                         dialog.show(getChildFragmentManager(), "Add to watch");
                     }
                     this.toWatchDataSource.close();
