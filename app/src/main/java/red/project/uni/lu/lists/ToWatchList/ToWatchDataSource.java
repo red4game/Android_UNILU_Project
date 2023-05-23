@@ -84,6 +84,17 @@ public class ToWatchDataSource {
         return newToWatchItem;
     }
 
+    public boolean isInToWatchList(int movieID){
+        android.database.Cursor cursor = database.query(ToWatchSQLiteHelper.TABLE_TO_WATCH, allColumns, ToWatchSQLiteHelper.COLUMN_MOVIE_ID + " = " + movieID, null, null, null, null);
+        cursor.moveToFirst();
+        if (cursor.getCount() == 0) {
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+
     public void deleteToWatchItem(ToWatchItem toWatchItem) {
         int id = toWatchItem.getMovieID();
         database.delete(ToWatchSQLiteHelper.TABLE_TO_WATCH, ToWatchSQLiteHelper.COLUMN_MOVIE_ID + " = " + id, null);

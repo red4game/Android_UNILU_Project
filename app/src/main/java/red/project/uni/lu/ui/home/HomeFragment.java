@@ -1,10 +1,8 @@
 package red.project.uni.lu.ui.home;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,17 +12,11 @@ import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.denzcoskun.imageslider.ImageSlider;
@@ -37,10 +29,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import red.project.uni.lu.BuildConfig;
 import red.project.uni.lu.R;
@@ -48,7 +36,6 @@ import red.project.uni.lu.databinding.FragmentHomeBinding;
 import red.project.uni.lu.lists.HomeList.HomeAdapter;
 import red.project.uni.lu.lists.HomeList.HomeItem;
 import red.project.uni.lu.lists.HomeList.LoadListener;
-import red.project.uni.lu.ui.no_watched_detailled.NoWatchedDetailledFragment;
 
 public class HomeFragment extends Fragment {
 

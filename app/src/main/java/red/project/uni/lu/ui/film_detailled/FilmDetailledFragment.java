@@ -1,4 +1,4 @@
-package red.project.uni.lu.ui.no_watched_detailled;
+package red.project.uni.lu.ui.film_detailled;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,13 +30,15 @@ import java.util.ArrayList;
 import red.project.uni.lu.BuildConfig;
 import red.project.uni.lu.R;
 import red.project.uni.lu.databinding.FragmentHomeBinding;
+import red.project.uni.lu.lists.ToWatchList.ToWatchDataSource;
 
-public class NoWatchedDetailledFragment extends Fragment {
+public class FilmDetailledFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private RequestQueue mRequestQueue;
     private StringRequest mStringRequest;
     private StringRequest mStringRequestReco;
+    private ToWatchDataSource toWatchDataSource;
     int movieId;
     ArrayList<SlideModel> recoModels;
     ImageSlider recoSlider;
@@ -64,6 +67,7 @@ public class NoWatchedDetailledFragment extends Fragment {
         addWatched = view.findViewById(R.id.AddWDNoWatched);
         addToWatch = view.findViewById(R.id.AddTWNoWatch);
         recoSlider = view.findViewById(R.id.RecoNoWatchSlider);
+        this.toWatchDataSource = new ToWatchDataSource(view.getContext());
 
         Bundle bundle = this.getArguments();
         assert bundle != null;
@@ -118,7 +122,18 @@ public class NoWatchedDetailledFragment extends Fragment {
                 });
 
                 addToWatch.setOnClickListener(v -> {
-                    // TODO : add to to watch
+                    // Open the dialog to add to watch
+                    this.toWatchDataSource.open();
+                    if (this.toWatchDataSource.isInToWatchList(movieId)) {
+                        // Make a toast to say that the movie is already in the list
+                        Toast.makeText(view.getContext(), "This movie is already in your watchlist", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        System.out.println("Add to watch");
+                        AddToWatchDialog dialog = AddToWatchDialog.newInstance(movieId);
+                        dialog.show(getChildFragmentManager(), "Add to watch");
+                    }
+                    this.toWatchDataSource.close();
                 });
 
                 // setup the recommendations slider
