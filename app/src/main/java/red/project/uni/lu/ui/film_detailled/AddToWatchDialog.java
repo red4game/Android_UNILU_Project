@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ import red.project.uni.lu.lists.ToWatchList.ToWatchItem;
 
 public class AddToWatchDialog extends DialogFragment {
     CalendarView calendarToWatch;
-    TextView notesToWatch;
+    EditText notesToWatch;
     String dateToWatch;
     ToWatchDataSource toWatchDataSource;
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -42,7 +43,8 @@ public class AddToWatchDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.add_towatch_dialog, null);
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.add_towatch_dialog, null);
         // initialize date to watch with today's date
         dateToWatch = dateFormat.format(System.currentTimeMillis());
 
@@ -57,6 +59,7 @@ public class AddToWatchDialog extends DialogFragment {
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
                 dateToWatch = year + "-" + month + "-" + dayOfMonth;
+                System.out.println("Date to watch : " + dateToWatch);
             }
         });
 
@@ -68,9 +71,9 @@ public class AddToWatchDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        builder.setView(inflater.inflate(R.layout.add_towatch_dialog, null))
+
+        builder.setView(view)
 
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
