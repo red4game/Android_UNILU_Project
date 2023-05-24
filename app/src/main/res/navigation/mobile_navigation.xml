@@ -33,5 +33,5 @@
     <fragment
         android:id="@+id/FilmDetailledFragment"
         android:name="red.project.uni.lu.ui.film_detailled.FilmDetailledFragment"
-        android:label="NoWatchedDetailledFragment" />
+        android:label="Movie details" />
 </navigation>

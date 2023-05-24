@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,13 +18,18 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import red.project.uni.lu.R;
+import red.project.uni.lu.ui.toWatch.ToWatchFragment;
 
 public class ToWatchAdapter extends RecyclerView.Adapter<ToWatchViewHolder> {
 
     List<ToWatchItem> toWatchItems;
+    ToWatchFragment toWatchFragment;
 
-    public ToWatchAdapter(List<ToWatchItem> toWatchItems) {
+
+
+    public ToWatchAdapter(List<ToWatchItem> toWatchItems, ToWatchFragment toWatchFragment){
         this.toWatchItems = toWatchItems;
+        this.toWatchFragment = toWatchFragment;
     }
 
     @NonNull
@@ -66,6 +73,11 @@ public class ToWatchAdapter extends RecyclerView.Adapter<ToWatchViewHolder> {
                     toWatchItems.remove(position);
                     notifyItemRemoved(position);
                     notifyItemRangeChanged(position, toWatchItems.size());
+                    // If the list is empty, display a text
+                    if (toWatchItems.size() == 0) {
+                        // set the text to visible and the recycler view to invisible
+                        toWatchFragment.hasItem(false);
+                    }
                 });
                 builder.setNegativeButton("No", (dialog, which) -> dialog.cancel());
                 AlertDialog dialog = builder.create();
@@ -76,6 +88,7 @@ public class ToWatchAdapter extends RecyclerView.Adapter<ToWatchViewHolder> {
             holder.itemView.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
                 bundle.putInt("movieID", toWatchItem.getMovieID());
+                // Change the label of the action bar
                 Navigation.findNavController(v).navigate(R.id.action_nav_toWatch_to_FilmDetailledFragment, bundle);
 
             });
