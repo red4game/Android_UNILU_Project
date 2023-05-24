@@ -57,19 +57,23 @@
                 <TextView
                     android:id="@+id/TitleNoWatch"
                     android:layout_width="match_parent"
-                    android:layout_height="51dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="40px"
                     android:text="Title of the movie"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/DescriptionNoWatch"
                     android:layout_width="match_parent"
-                    android:layout_height="199dp"
+                    android:layout_height="228dp"
                     android:layout_marginLeft="20px"
                     android:layout_marginRight="50px"
                     android:isScrollContainer="true"
                     android:scrollbars="vertical"
-                    android:text="Synopsis of the movie \n wow amazing" />
+                    android:text="Synopsis of the movie \n wow amazing"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -78,6 +82,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="20px"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -91,33 +96,41 @@
                     android:layout_width="match_parent"
                     android:layout_height="158dp"
                     android:layout_marginLeft="50px"
-                    android:text="Genres of the movie" />
+                    android:text="Genres of the movie"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/RatingNoWatch"
                     android:layout_width="match_parent"
                     android:layout_height="63dp"
                     android:gravity="center"
-                    android:text="Rating of the movie" />
+                    android:text="Rating of the movie"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="212dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginRight="20px"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
                     android:id="@+id/AddTWNoWatch"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add to watch" />
+                    android:layout_height="100dp"
+                    android:text="To Watch"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/AddWDNoWatched"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add watched" />
+                    android:layout_height="100dp"
+                    android:text="✅ Watched"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

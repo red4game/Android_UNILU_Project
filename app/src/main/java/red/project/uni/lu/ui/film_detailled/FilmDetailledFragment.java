@@ -58,7 +58,7 @@ public class FilmDetailledFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_no_watched_detailled, container, false);
+        view = inflater.inflate(R.layout.fragment_film_detailled, container, false);
 
 
         poster = view.findViewById(R.id.ImageNoWatch);

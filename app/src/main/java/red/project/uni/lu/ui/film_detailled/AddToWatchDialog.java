@@ -78,14 +78,6 @@ public class AddToWatchDialog extends DialogFragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        System.out.println("Added movieId : " + movieId + " to toWatchList");
-                        System.out.println("Date to watch : " + dateToWatch);
-                        System.out.println("Notes : " + notesToWatch.getText().toString());
-                        System.out.println("Title : " + title);
-                        System.out.println("PosterUrl : " + posterUrl);
-                        System.out.println("Date of release : " + dateOfRelease);
-                        System.out.println("Description : " + description);
-
                         ToWatchItem twi;
                         toWatchDataSource.open();
                         if (notesToWatch.getText().length() > 0){
