@@ -472,7 +472,7 @@ public class HomeFragment extends Fragment {
                         Bundle bundle = new Bundle();
                         bundle.putInt("movieID", moviesIDS.get(i));
                         System.out.println(moviesIDS.get(i));
-                        Navigation.findNavController(view).navigate(R.id.action_nav_home_to_noWatchedDetailledFragment, bundle);
+                        Navigation.findNavController(view).navigate(R.id.action_nav_home_to_FilmDetailledFragment, bundle);
 
                     }
                 });

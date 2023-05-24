@@ -1,5 +1,7 @@
 package red.project.uni.lu.ui.toWatch;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +48,7 @@ public class ToWatchFragment extends Fragment {
             v.findViewById(R.id.ToWatchItemNotes).getParent().requestDisallowInterceptTouchEvent(false);
             return false;
         });
+
         return view;
     }
 

@@ -11,23 +11,27 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_home_to_noWatchedDetailledFragment"
-            app:destination="@id/noWatchedDetailledFragment" />
+            android:id="@+id/action_nav_home_to_FilmDetailledFragment"
+            app:destination="@id/FilmDetailledFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_Watched"
         android:name="red.project.uni.lu.ui.Watched.WatchedFragment"
-        android:label="@string/menu_gallery"
+        android:label="Watched list"
         tools:layout="@layout/fragment_watched" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_toWatch"
         android:name="red.project.uni.lu.ui.toWatch.ToWatchFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_towatch" />
+        android:label="ToWatch list"
+        tools:layout="@layout/fragment_towatch">
+        <action
+            android:id="@+id/action_nav_toWatch_to_FilmDetailledFragment"
+            app:destination="@id/FilmDetailledFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/noWatchedDetailledFragment"
+        android:id="@+id/FilmDetailledFragment"
         android:name="red.project.uni.lu.ui.film_detailled.FilmDetailledFragment"
         android:label="NoWatchedDetailledFragment" />
 </navigation>

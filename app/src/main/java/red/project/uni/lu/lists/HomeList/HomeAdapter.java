@@ -98,7 +98,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (getItemViewType(position) != LOAD) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("movieID", item.getId());
-                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_noWatchedDetailledFragment, bundle);
+                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_FilmDetailledFragment, bundle);
             }
         });
     }
