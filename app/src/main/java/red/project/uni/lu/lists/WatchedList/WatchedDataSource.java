@@ -26,7 +26,7 @@ public class WatchedDataSource {
         WatchedItem.setDateOfRelease(cursor.getString(4));
         WatchedItem.setDateWatched(cursor.getString(5));
         WatchedItem.setDateAdded(cursor.getString(6));
-        WatchedItem.setRating(cursor.getInt(7));
+        WatchedItem.setRating(cursor.getFloat(7));
         return WatchedItem;
     }
 
@@ -38,7 +38,7 @@ public class WatchedDataSource {
         dbHelper.close();
     }
 
-    public WatchedItem createWatchedItem(String title, String previewUrl, String notes, String dateOfRelease, String dateWatched, int movieId, int rating) {
+    public WatchedItem createWatchedItem(String title, String previewUrl, String notes, String dateOfRelease, String dateWatched, int movieId, float rating) {
         android.database.Cursor cursor = database.query(WatchedSQLiteHelper.TABLE_WATCHED, allColumns, WatchedSQLiteHelper.COLUMN_MOVIE_ID + " = " + movieId, null, null, null, null);
         cursor.moveToFirst();
         WatchedItem newWatchedItem = null;
@@ -95,6 +95,16 @@ public class WatchedDataSource {
         database.delete(WatchedSQLiteHelper.TABLE_WATCHED, WatchedSQLiteHelper.COLUMN_MOVIE_ID + " = " + movieId, null);
     }
 
+    public boolean isInWatchedList(int movieID){
+        android.database.Cursor cursor = database.query(WatchedSQLiteHelper.TABLE_WATCHED, allColumns, WatchedSQLiteHelper.COLUMN_MOVIE_ID + " = " + movieID, null, null, null, null);
+        cursor.moveToFirst();
+        if (cursor.getCount() == 0) {
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
 
     public java.util.List<WatchedItem> getAllWatchedItems() {
         java.util.List<WatchedItem> WatchedItems = new java.util.ArrayList<WatchedItem>();

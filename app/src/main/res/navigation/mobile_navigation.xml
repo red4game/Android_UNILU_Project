@@ -19,7 +19,11 @@
         android:id="@+id/nav_Watched"
         android:name="red.project.uni.lu.ui.Watched.WatchedFragment"
         android:label="Watched list"
-        tools:layout="@layout/fragment_watched" />
+        tools:layout="@layout/fragment_watched">
+        <action
+            android:id="@+id/action_nav_Watched_to_FilmDetailledFragment"
+            app:destination="@id/FilmDetailledFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_toWatch"

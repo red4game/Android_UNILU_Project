@@ -11,7 +11,7 @@ public class WatchedItem {
 
     int MovieID;
 
-    int rating;
+    float rating;
 
     public String getPreviewUrl() {
         return previewUrl;
@@ -69,11 +69,11 @@ public class WatchedItem {
         MovieID = movieID;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

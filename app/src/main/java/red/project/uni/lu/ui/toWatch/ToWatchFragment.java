@@ -52,7 +52,7 @@ public class ToWatchFragment extends Fragment {
             return false;
         });
 
-        hasItem(toWatchItems.size() > 0);
+        hasItem(toWatchAdapter.getItemCount() > 0);
 
 
         return view;

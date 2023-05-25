@@ -80,12 +80,14 @@
         <RatingBar
             android:id="@+id/WatchedItemRatingBar"
             style="@style/Widget.AppCompat.RatingBar.Indicator"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:isIndicator="true"
             android:max="10"
             android:numStars="10"
             android:progressTint="#F61D1D"
-            android:rating="9" />
+            android:rating="5" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -20,7 +20,7 @@ public class WatchedSQLiteHelper extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "watched.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String DATABASE_CREATE = "create table "
             + TABLE_WATCHED + "(" + COLUMN_MOVIE_ID + " integer primary key autoincrement, "
@@ -30,7 +30,7 @@ public class WatchedSQLiteHelper extends SQLiteOpenHelper {
             + COLUMN_DATE_OF_RELEASE + " text not null, "
             + COLUMN_DATE_WATCHED + " text not null, "
             + COLUMN_DATE_ADDED + " text not null, "
-            + COLUMN_RATING + " integer not null check(" + COLUMN_RATING + " >= 0 and " + COLUMN_RATING + " <= 10));";
+            + COLUMN_RATING + " float not null check(" + COLUMN_RATING + " >= 0 and " + COLUMN_RATING + " <= 10));";
 
 
     public WatchedSQLiteHelper(Context context) {
