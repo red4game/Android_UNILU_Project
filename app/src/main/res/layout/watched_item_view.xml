@@ -87,7 +87,8 @@
             android:max="10"
             android:numStars="10"
             android:progressTint="#F61D1D"
-            android:rating="5" />
+            android:rating="5"
+            android:stepSize="0.1" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

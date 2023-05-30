@@ -7,6 +7,21 @@
     app:layout_constraintHeight_min="400dp"
     app:layout_constraintWidth_min="400dp">
 
+    <EditText
+        android:id="@+id/inputNotesWatched"
+        android:layout_width="380dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Notes sur le film regardé"
+        android:inputType="textMultiLine"
+        android:paddingHorizontal="40px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/labelDateWatched"
         android:layout_width="wrap_content"
@@ -16,9 +31,8 @@
         android:text="Date où le film a été regardé"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/inputNotesWatched" />
 
     <CalendarView
         android:id="@+id/CalendarWatched"
@@ -32,42 +46,16 @@
         app:layout_constraintTop_toBottomOf="@+id/labelDateWatched" />
 
     <TextView
-        android:id="@+id/labelNotesWatched"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:text="Notes sur le film regardé"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CalendarWatched" />
-
-    <EditText
-        android:id="@+id/inputNotesWatched"
-        android:layout_width="380dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelNotesWatched" />
-
-    <TextView
         android:id="@+id/labelRatingWatched"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="4dp"
         android:gravity="center"
         android:text="Rating du film"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputNotesWatched" />
+        app:layout_constraintTop_toBottomOf="@+id/CalendarWatched" />
 
     <RatingBar
         android:id="@+id/ratingWatched"
@@ -80,6 +68,7 @@
         android:max="10"
         android:numStars="10"
         android:rating="5"
+        android:stepSize="0.1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelRatingWatched" />
