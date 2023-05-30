@@ -1,5 +1,9 @@
 package red.project.uni.lu;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import red.project.uni.lu.databinding.ActivityMainBinding;
@@ -54,6 +59,22 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        // Create an alarm for 8:00 AM in order to verify if there are any movies to watch today
+        Intent intent = new Intent(this, NotificationBroadCastReceiver.class);
+        intent.setAction("red.project.uni.lu.NOTIFICATION_ACTION");
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,1312,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+
+        // Set the alarm to start at 8:00 AM
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND, 0);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     @Override
