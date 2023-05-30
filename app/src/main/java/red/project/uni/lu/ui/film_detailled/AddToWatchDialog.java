@@ -58,7 +58,11 @@ public class AddToWatchDialog extends DialogFragment {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
-                dateToWatch = year + "-" + month + "-" + dayOfMonth;
+                String ny = year + "";
+                String nm = String.format("%02d", month + 1);
+                String nd = String.format("%02d", dayOfMonth);
+
+                dateToWatch = ny + "-" + nm + "-" + nd;
                 System.out.println("Date to watch : " + dateToWatch);
             }
         });
