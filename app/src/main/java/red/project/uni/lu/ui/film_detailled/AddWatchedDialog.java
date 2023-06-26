@@ -77,7 +77,6 @@ public class AddWatchedDialog extends DialogFragment {
                 String nd = String.format("%02d", dayOfMonth);
 
                 dateWatched = ny + "-" + nm + "-" + nd;
-                System.out.println("Date watched : " + dateWatched);
             }
         });
 

@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import red.project.uni.lu.BuildConfig;
 import red.project.uni.lu.R;
@@ -77,7 +78,6 @@ public class FilmDetailledFragment extends Fragment {
         Bundle bundle = this.getArguments();
         assert bundle != null;
         movieId = (int) bundle.get("movieID");
-        System.out.println("from detailled : " + movieId);
         recoModels = new ArrayList<>();
 
         // call to the api and put into all the fields
@@ -106,7 +106,6 @@ public class FilmDetailledFragment extends Fragment {
         mRequestQueue = Volley.newRequestQueue(view.getContext());
         mStringRequest = new StringRequest(url, response -> {
             try {
-                System.out.println(response);
                 JSONObject jsonObj = new JSONObject(response);
 
                 // Setup the fields
@@ -132,7 +131,6 @@ public class FilmDetailledFragment extends Fragment {
                         Toast.makeText(view.getContext(), "This movie is already in your watched list", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
-                        System.out.println("Add watched");
                         AddWatchedDialog dialog = AddWatchedDialog.newInstance(movieId, title.getText().toString(),posterPath,releaseDate,description.getText().toString());
                         dialog.show(getChildFragmentManager(), "Add watched");
                     }
@@ -150,7 +148,6 @@ public class FilmDetailledFragment extends Fragment {
                         Toast.makeText(view.getContext(), "This movie is already in your watchlist or watched list", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
-                        System.out.println("Add to watch");
                         AddToWatchDialog dialog = AddToWatchDialog.newInstance(movieId, title.getText().toString(),posterPath,releaseDate,description.getText().toString());
                         dialog.show(getChildFragmentManager(), "Add to watch");
                     }
@@ -160,11 +157,13 @@ public class FilmDetailledFragment extends Fragment {
 
                 // setup the recommendations slider
                 String url2 = "https://api.themoviedb.org/3/movie/" + id + "/recommendations?api_key="+BuildConfig.TMDB_API_KEY+"&language=fr-FR&page=1";
+                List<Integer> movieIDS = new ArrayList<Integer>();
                 mStringRequestReco = new StringRequest(url2, response2 -> {
                     try {
-                        System.out.println(response2);
                         JSONObject jsonObj2 = new JSONObject(response2);
+                        recoModels.clear();
                         for (int i = 0; i < jsonObj2.getJSONArray("results").length(); i++) {
+                            movieIDS.add(jsonObj2.getJSONArray("results").getJSONObject(i).getInt("id"));
                             recoModels.add(new SlideModel("https://image.tmdb.org/t/p/w500" + jsonObj2.getJSONArray("results").getJSONObject(i).getString("backdrop_path"),jsonObj2.getJSONArray("results").getJSONObject(i).getString("title"), ScaleTypes.FIT));
                         }
 
@@ -177,8 +176,9 @@ public class FilmDetailledFragment extends Fragment {
 
                             @Override
                             public void onItemSelected(int i) {
-                                // TODO : redirect to the good view but when i'll have the database
-                                System.out.println("clicked on reco : " + i);
+                                movieId = movieIDS.get(i);
+                                //getMovieFromId(movieId);
+                                // TODO : does not work for now cause of thread approach with slider component
                             }
                         });
                     } catch (JSONException e) {

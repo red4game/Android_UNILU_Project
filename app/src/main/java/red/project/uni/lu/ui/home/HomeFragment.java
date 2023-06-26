@@ -443,7 +443,6 @@ public class HomeFragment extends Fragment {
         mRequestQueue = Volley.newRequestQueue(view.getContext());
         mStringRequest = new StringRequest(url, response -> {
             try {
-                System.out.println(response);
                 JSONObject jsonObj = new JSONObject(response);
                 for (int i = 0; i < jsonObj.getJSONArray("results").length(); i++) {
                     JSONObject movie = jsonObj.getJSONArray("results").getJSONObject(i);
@@ -471,7 +470,6 @@ public class HomeFragment extends Fragment {
                         // open an intent to the movie page by passing the id of the movie
                         Bundle bundle = new Bundle();
                         bundle.putInt("movieID", moviesIDS.get(i));
-                        System.out.println(moviesIDS.get(i));
                         Navigation.findNavController(view).navigate(R.id.action_nav_home_to_FilmDetailledFragment, bundle);
 
                     }
@@ -532,7 +530,6 @@ public class HomeFragment extends Fragment {
 
         mStringRequest = new StringRequest(url, response -> {
             try {
-                System.out.println(response);
                 JSONObject jsonObj = new JSONObject(response);
                 List<HomeItem> movies = new ArrayList<>();
                 for (int i = 0; i < jsonObj.getJSONArray("results").length(); i++) {
@@ -586,7 +583,6 @@ public class HomeFragment extends Fragment {
 
         mStringRequest = new StringRequest(url, response -> {
             try {
-                System.out.println(response);
                 JSONObject jsonObj = new JSONObject(response);
                 List<HomeItem> movies = new ArrayList<>();
                 for (int i = 0; i < jsonObj.getJSONArray("results").length(); i++) {
@@ -631,7 +627,6 @@ public class HomeFragment extends Fragment {
 
         mStringRequest = new StringRequest(url, response -> {
             try {
-                System.out.println(response);
                 JSONObject jsonObj = new JSONObject(response);
                 List<HomeItem> movies = new ArrayList<>();
                 for (int i = 0; i < jsonObj.getJSONArray("results").length(); i++) {
@@ -661,8 +656,6 @@ public class HomeFragment extends Fragment {
                     noItemText.setVisibility(View.GONE);
 
                     homeAdapter.replace(movies);
-                    System.out.println("Number of pages :" + jsonObj.getInt("total_pages"));
-                    System.out.println("Current page :" + page);
 
                     if (jsonObj.getInt("total_pages") == page) {
                         isLastPage = true;
@@ -688,7 +681,6 @@ public class HomeFragment extends Fragment {
 
         mStringRequest = new StringRequest(url, response -> {
             try {
-                System.out.println(response);
                 JSONObject jsonObj = new JSONObject(response);
                 List<HomeItem> movies = new ArrayList<>();
                 for (int i = 0; i < jsonObj.getJSONArray("results").length(); i++) {

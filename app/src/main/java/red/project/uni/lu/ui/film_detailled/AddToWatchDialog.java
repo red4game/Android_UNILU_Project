@@ -63,7 +63,6 @@ public class AddToWatchDialog extends DialogFragment {
                 String nd = String.format("%02d", dayOfMonth);
 
                 dateToWatch = ny + "-" + nm + "-" + nd;
-                System.out.println("Date to watch : " + dateToWatch);
             }
         });
 

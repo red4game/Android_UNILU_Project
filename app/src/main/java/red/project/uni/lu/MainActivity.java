@@ -21,10 +21,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.Data;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import red.project.uni.lu.databinding.ActivityMainBinding;
 
@@ -32,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    public static final String workTag = "red.project.uni.lu.work";
 
 
 
@@ -59,22 +66,19 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        // Create an alarm for 8:00 AM in order to verify if there are any movies to watch today
-        Intent intent = new Intent(this, NotificationBroadCastReceiver.class);
-        intent.setAction("red.project.uni.lu.NOTIFICATION_ACTION");
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,1312,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-
-        // Set the alarm to start at 8:00 AM
-
+        // Setup the time when the notification should be sent
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
-        calendar.set(Calendar.MINUTE,0);
-        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 0);
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(NotificationWorker.class, 1, TimeUnit.DAYS)
+                .setInitialDelay(calendar.getTimeInMillis() - System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                .addTag(workTag)
+                .build();
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(workTag, ExistingPeriodicWorkPolicy.KEEP, workRequest);
+
     }
 
     @Override

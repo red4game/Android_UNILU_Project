@@ -19,7 +19,6 @@ public abstract class LoadListener extends RecyclerView.OnScrollListener {
         if (!isLoad() && !isLast()) {
             if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                 loadMore();
-                System.out.println("Load more");
             }
         }
     }
