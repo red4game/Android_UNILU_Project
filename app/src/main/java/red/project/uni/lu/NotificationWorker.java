@@ -35,11 +35,10 @@ public class NotificationWorker extends Worker {
         toWatchDataSource.open();
         if (this.toWatchDataSource.ToWatchToday()) {
 
-
             // Create a notification builder
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("MovieWatcher")
+                    .setContentTitle("Movie Watcher")
                     .setContentText("You have one or more films to watch today !")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 

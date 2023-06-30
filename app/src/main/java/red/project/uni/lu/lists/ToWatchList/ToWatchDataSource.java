@@ -98,7 +98,7 @@ public class ToWatchDataSource {
 
     public boolean ToWatchToday(){
         String today = dateFormat.format(new java.util.Date());
-        android.database.Cursor cursor = database.query(ToWatchSQLiteHelper.TABLE_TO_WATCH, allColumns, ToWatchSQLiteHelper.COLUMN_DATE_TO_WATCH + " = " + today, null, null, null, null);
+        android.database.Cursor cursor = database.query(ToWatchSQLiteHelper.TABLE_TO_WATCH, allColumns, ToWatchSQLiteHelper.COLUMN_DATE_TO_WATCH + " = '" + today +"'", null, null, null, null);
         cursor.moveToFirst();
         if (cursor.getCount() == 0) {
             cursor.close();
